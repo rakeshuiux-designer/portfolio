@@ -1,155 +1,515 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="utf-8">
-  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RAKESH — UX/UI Works</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
 
-  <title>RAKESH - UX/UI WORKS</title>
-  <meta content="" name="description">
-  <meta content="" name="keywords">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-  <!-- Favicons -->
-  <link href="assets/img/favicon.png" rel="icon">
-  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+    :root {
+      --bg: #0e0e0e;
+      --surface: #161616;
+      --border: #2a2a2a;
+      --accent: #e8ff4a;
+      --text: #f0f0f0;
+      --muted: #888;
+      --nav-height: 60px;
+    }
 
-  <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css?family=https://fonts.googleapis.com/css?family=Inconsolata:400,500,600,700|Raleway:400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+    html { scroll-behavior: smooth; }
 
-  <!-- Vendor CSS Files -->
-  <link href="assets/vendor/aos/aos.css" rel="stylesheet">
-  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
-  <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 300;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
 
-  <!-- Template Main CSS File -->
-  <link href="assets/css/style.css" rel="stylesheet">
+    /* ── Top bar ── */
+    .topbar {
+      background: var(--accent);
+      color: #000;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      text-align: center;
+      padding: 8px 16px;
+      line-height: 1.4;
+    }
 
+    /* ── Nav ── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--bg);
+      border-bottom: 1px solid var(--border);
+      height: var(--nav-height);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 24px;
+      gap: 16px;
+    }
+
+    .nav-logo {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 22px;
+      letter-spacing: 0.05em;
+      color: var(--text);
+      text-decoration: none;
+      flex-shrink: 0;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 4px;
+      list-style: none;
+      align-items: center;
+    }
+
+    .nav-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 400;
+      padding: 6px 12px;
+      border-radius: 4px;
+      transition: color 0.2s, background 0.2s;
+      white-space: nowrap;
+    }
+
+    .nav-links a:hover { color: var(--text); background: var(--surface); }
+    .nav-links li.active a { color: var(--accent); }
+
+    /* Hamburger */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      padding: 6px;
+      background: none;
+      border: none;
+    }
+    .hamburger span {
+      display: block;
+      width: 22px;
+      height: 2px;
+      background: var(--text);
+      border-radius: 2px;
+      transition: transform 0.3s, opacity 0.3s;
+    }
+    .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    .mobile-menu {
+      display: none;
+      position: fixed;
+      top: var(--nav-height);
+      left: 0; right: 0;
+      background: var(--bg);
+      border-bottom: 1px solid var(--border);
+      padding: 20px 24px;
+      z-index: 99;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 15px;
+      padding: 10px 0;
+      border-bottom: 1px solid var(--border);
+      transition: color 0.2s;
+    }
+    .mobile-menu a:last-child { border-bottom: none; }
+    .mobile-menu a:hover, .mobile-menu a.active { color: var(--accent); }
+
+    /* ── Hero ── */
+    .hero {
+      padding: 48px 24px 32px;
+      max-width: 900px;
+    }
+
+    .hero-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 11px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 16px;
+    }
+    .hero-tag::before {
+      content: '';
+      display: block;
+      width: 24px;
+      height: 1px;
+      background: var(--accent);
+    }
+
+    .hero h1 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(48px, 10vw, 100px);
+      line-height: 0.9;
+      letter-spacing: 0.02em;
+      color: var(--text);
+      margin-bottom: 20px;
+    }
+
+    .hero h1 em {
+      color: var(--accent);
+      font-style: normal;
+    }
+
+    .hero-meta {
+      display: flex;
+      gap: 24px;
+      flex-wrap: wrap;
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    .hero-meta strong { color: var(--text); font-weight: 500; }
+
+    /* ── Divider ── */
+    .section-divider {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 0 24px 40px;
+    }
+
+    /* ── Portfolio Grid ── */
+    .portfolio-section { padding: 0 24px 64px; }
+
+    .portfolio-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+
+    .portfolio-card {
+      position: relative;
+      border-radius: 10px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      text-decoration: none;
+      display: block;
+      group: true;
+      transition: border-color 0.3s, transform 0.3s;
+      animation: fadeUp 0.5s ease both;
+    }
+
+    .portfolio-card:hover {
+      border-color: #444;
+      transform: translateY(-4px);
+    }
+
+    .portfolio-card img {
+      width: 100%;
+      height: 240px;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+
+    .portfolio-card:hover img { transform: scale(1.05); }
+
+    .card-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.2) 50%, transparent 100%);
+      opacity: 0;
+      transition: opacity 0.3s;
+      display: flex;
+      align-items: flex-end;
+      padding: 20px;
+    }
+
+    .portfolio-card:hover .card-overlay { opacity: 1; }
+
+    .overlay-arrow {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: var(--accent);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #000;
+      font-size: 18px;
+      margin-left: auto;
+      flex-shrink: 0;
+    }
+
+    .card-info {
+      padding: 16px;
+    }
+
+    .card-info h3 {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--text);
+      margin-bottom: 4px;
+      line-height: 1.4;
+    }
+
+    .card-info span {
+      font-size: 12px;
+      color: var(--muted);
+      line-height: 1.4;
+      display: block;
+    }
+
+    .card-tag {
+      display: inline-block;
+      font-size: 10px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 8px;
+      font-weight: 500;
+    }
+
+    /* Stagger animation */
+    .portfolio-card:nth-child(1) { animation-delay: 0ms; }
+    .portfolio-card:nth-child(2) { animation-delay: 60ms; }
+    .portfolio-card:nth-child(3) { animation-delay: 120ms; }
+    .portfolio-card:nth-child(4) { animation-delay: 180ms; }
+    .portfolio-card:nth-child(5) { animation-delay: 240ms; }
+    .portfolio-card:nth-child(6) { animation-delay: 300ms; }
+    .portfolio-card:nth-child(7) { animation-delay: 360ms; }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── Footer ── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 32px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    footer .name {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 20px;
+      letter-spacing: 0.05em;
+    }
+
+    footer .copy {
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: 4px;
+    }
+
+    footer .contact a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 13px;
+      margin-left: 20px;
+      transition: color 0.2s;
+    }
+    footer .contact a:first-child { margin-left: 0; }
+    footer .contact a:hover { color: var(--accent); }
+
+    /* ── Responsive ── */
+    @media (max-width: 900px) {
+      .portfolio-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+      .hero { padding: 32px 20px 24px; }
+      .portfolio-section { padding: 0 16px 48px; }
+      .section-divider { margin: 0 16px 32px; }
+      .portfolio-grid { gap: 12px; }
+      .portfolio-card img { height: 180px; }
+    }
+
+    @media (max-width: 480px) {
+      .portfolio-grid { grid-template-columns: 1fr; }
+      .portfolio-card img { height: 220px; }
+      footer { flex-direction: column; align-items: flex-start; }
+      footer .contact a { margin-left: 0; margin-right: 16px; }
+    }
+  </style>
 </head>
 
 <body>
 
-  <!-- ======= Navbar ======= -->
-  <div class="navbar-collapse custom-navmenu" id="main-navbar">
-    <div class="container py-3 py-md-5">
-      <div class="row align-items-start">
-        <div class="col-md-3">
-          <ul class="custom-menu">
-		    <li><a href="https://rakeshuiux-designer.github.io/rakesh/">Rakesh Ala - CV</a></li>
-            <li class="active"><a href="index.html">UX/UI Works</a></li>
-            <li><a href="graphic-design.html">Graphic Design Works</a></li>
-            <li><a href="contact.html">Contact Me</a></li>
-          </ul>
-        </div>
-        
-        <div class="col-md-9 d-none d-md-block">
-          <h3>I'm Rakesh - Ux Ui Designer | Graphic Designer </h3><h3>For the past 8+ Years, I'm working as a Full-time Freelance Ux/UI and Graphic Designer. Overall Experience is 20 years.</h3>
-          <p>In my professional journey, I've expertly designed mobile and web apps for a range of sectors—healthcare, fleet management, HRMS, Finance, Insurance, LMS, ERP, CRM, SaaS, and eCommerce..<br><strong style="color: aliceblue;">rakesh.leadux@gmail.com</strong> | <strong style="color: aliceblue;">+91 944 1230 700</strong></p>
-        </div>
-      </div>
+  <div class="topbar">
+    Available for Full-time / Part-time Remote Contractual Engagement
+  </div>
 
+  <nav>
+    <a class="nav-logo" href="index.html">Rakesh</a>
+
+    <ul class="nav-links">
+      <li><a href="https://rakeshuiux-designer.github.io/rakesh/">CV</a></li>
+      <li class="active"><a href="index.html">UX/UI Works</a></li>
+      <li><a href="graphic-design.html">Graphic Design</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+
+    <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="https://rakeshuiux-designer.github.io/rakesh/">Rakesh Ala — CV</a>
+    <a href="index.html" class="active">UX/UI Works</a>
+    <a href="graphic-design.html">Graphic Design Works</a>
+    <a href="contact.html">Contact Me</a>
+  </div>
+
+  <div class="hero">
+    <div class="hero-tag">Portfolio · 20 Years Experience</div>
+    <h1>UX/UI<br><em>Works</em></h1>
+    <div class="hero-meta">
+      <span><strong>UX/UI</strong> & Graphic Designer</span>
+      <span>Freelance · <strong>8+ years</strong></span>
+      <span>rakesh.leadux@gmail.com</span>
+      <span>+91 944 1230 700</span>
     </div>
   </div>
 
-  <nav class="navbar navbar-light custom-navbar">
-    <div class="container">
-      <a class="navbar-brand" href="index.html">I'm immediately available for Full-time / Part-time Remote Working Contractual Engagement</a>
-    
-    </div>
-  </nav>
+  <hr class="section-divider">
 
-  <main id="main">
-	
-	
-	
-    <!-- ======= Works Section ======= -->
-    <section class="section site-portfolio">
-      <div class="container">
-       
-        <div id="portfolio-grid" class="row no-gutter" data-aos="fade-up" data-aos-delay="200">
-          <div class="item web col-sm-6 col-md-4 col-lg-4 mb-4">
-            <a href="portfolio-1.html" class="item-wrap fancybox">
-              <div class="work-info">
-              <span>Overdues Collection App for B2B</span>
-              </div>
-              <img class="img-fluid" src="assets/img/img_1.png">
-            </a>
-          </div>
-          <div class="item photography col-sm-6 col-md-4 col-lg-4 mb-4">
-            <a href="portfolio-2.html" class="item-wrap fancybox">
-              <div class="work-info">
-                <h3>eeeeet.</h3>
-                <span>All about Food.</span>
-              </div>
-              <img class="img-fluid" src="assets/img/img_2.png">
-            </a>
-          </div>
-          <div class="item branding col-sm-6 col-md-4 col-lg-4 mb-4">
-            <a href="portfolio-3.html" class="item-wrap fancybox">
-              <div class="work-info">
-                <h3>Digital Healthcare Services</h3>
-                <span>Healthcare Services at your doorstep</span>
-              </div>
-              <img class="img-fluid" src="assets/img/img_3.png">
-            </a>
-          </div>
-          <div class="item design col-sm-6 col-md-4 col-lg-4 mb-4">
-            <a href="portfolio-4.html" class="item-wrap fancybox">
-              <div class="work-info">
-                <h3>Machine Learning Platform</h3>
-                <span>AI Powered Software Developering App</span>
-              </div>
-              <img class="img-fluid" src="assets/img/img_4.png">
-            </a>
-          </div>
-          <div class="item photography col-sm-6 col-md-4 col-lg-4 mb-4">
-            <a href="portfolio-5.html" class="item-wrap fancybox">
-              <div class="work-info">
-                <h3>Rental Services</h3>
-                <span>User Can Get/Put Property for Rent/Sale</span>
-              </div>
-              <img class="img-fluid" src="assets/img/img_5.png">
-            </a>
-          </div>
-          <div class="item branding col-sm-6 col-md-4 col-lg-4 mb-4">
-            <a href="portfolio-6.html" class="item-wrap fancybox">
-              <div class="work-info">
-                <h3>Smart Drive</h3>
-                <span>Parent Can Control Speed of the Vehicle & Track</span>
-              </div>
-              <img class="img-fluid" src="assets/img/img_6.png">
-            </a>
-          </div>
+  <section class="portfolio-section">
+    <div class="portfolio-grid">
 
-          <div class="item branding col-sm-6 col-md-4 col-lg-4 mb-4">
-            <a href="portfolio-7.html" class="item-wrap fancybox">
-              <div class="work-info">
-                <h3>Asset Creation & Management App</h3>
-                <span>Helps Create New Design Assets and Helps Manage All Assets</span>
-              </div>
-              <img class="img-fluid" src="assets/img/7/001.png">
-            </a>
-          </div>
-
-
+      <a href="portfolio-1.html" class="portfolio-card">
+        <img src="assets/img/img_1.png" alt="Overdues Collection App">
+        <div class="card-overlay">
+          <div class="overlay-arrow">→</div>
         </div>
-      </div>
-    </section><!-- End  Works Section -->
- </main><!-- End #main -->
+        <div class="card-info">
+          <span class="card-tag">Finance · B2B</span>
+          <h3>Overdues Collection App</h3>
+          <span>B2B debt collection & management platform</span>
+        </div>
+      </a>
 
+      <a href="portfolio-2.html" class="portfolio-card">
+        <img src="assets/img/img_2.png" alt="eeeeet Food App">
+        <div class="card-overlay">
+          <div class="overlay-arrow">→</div>
+        </div>
+        <div class="card-info">
+          <span class="card-tag">Food & Lifestyle</span>
+          <h3>eeeeet.</h3>
+          <span>All about Food — discovery & ordering app</span>
+        </div>
+      </a>
 
+      <a href="portfolio-3.html" class="portfolio-card">
+        <img src="assets/img/img_3.png" alt="Digital Healthcare Services">
+        <div class="card-overlay">
+          <div class="overlay-arrow">→</div>
+        </div>
+        <div class="card-info">
+          <span class="card-tag">Healthcare</span>
+          <h3>Digital Healthcare Services</h3>
+          <span>Healthcare services at your doorstep</span>
+        </div>
+      </a>
 
+      <a href="portfolio-4.html" class="portfolio-card">
+        <img src="assets/img/img_4.png" alt="Machine Learning Platform">
+        <div class="card-overlay">
+          <div class="overlay-arrow">→</div>
+        </div>
+        <div class="card-info">
+          <span class="card-tag">AI · SaaS</span>
+          <h3>Machine Learning Platform</h3>
+          <span>AI-powered software development app</span>
+        </div>
+      </a>
 
-  <!-- Vendor JS Files -->
-  <script src="assets/vendor/aos/aos.js"></script>
-  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <script src="assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
-  <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
-  <script src="assets/vendor/php-email-form/validate.js"></script>
+      <a href="portfolio-5.html" class="portfolio-card">
+        <img src="assets/img/img_5.png" alt="Rental Services">
+        <div class="card-overlay">
+          <div class="overlay-arrow">→</div>
+        </div>
+        <div class="card-info">
+          <span class="card-tag">Real Estate</span>
+          <h3>Rental Services</h3>
+          <span>Property rental & sales platform</span>
+        </div>
+      </a>
 
-  <!-- Template Main JS File -->
-  <script src="assets/js/main.js"></script>
+      <a href="portfolio-6.html" class="portfolio-card">
+        <img src="assets/img/img_6.png" alt="Smart Drive">
+        <div class="card-overlay">
+          <div class="overlay-arrow">→</div>
+        </div>
+        <div class="card-info">
+          <span class="card-tag">Fleet · Parental Control</span>
+          <h3>Smart Drive</h3>
+          <span>Speed control & vehicle tracking for parents</span>
+        </div>
+      </a>
+
+      <a href="portfolio-7.html" class="portfolio-card">
+        <img src="assets/img/7/001.png" alt="Asset Creation & Management App">
+        <div class="card-overlay">
+          <div class="overlay-arrow">→</div>
+        </div>
+        <div class="card-info">
+          <span class="card-tag">Design Tools · SaaS</span>
+          <h3>Asset Creation & Management</h3>
+          <span>Create and manage all design assets in one place</span>
+        </div>
+      </a>
+
+    </div>
+  </section>
+
+  <footer>
+    <div>
+      <div class="name">Rakesh Ala</div>
+      <div class="copy">© Rakesh Ala. All Rights Reserved.</div>
+    </div>
+    <div class="contact">
+      <a href="mailto:rakesh.leadux@gmail.com">rakesh.leadux@gmail.com</a>
+      <a href="tel:+919441230700">+91 944 1230 700</a>
+    </div>
+  </footer>
+
+  <script>
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    hamburger.addEventListener('click', () => {
+      hamburger.classList.toggle('open');
+      mobileMenu.classList.toggle('open');
+    });
+    mobileMenu.querySelectorAll('a').forEach(a => {
+      a.addEventListener('click', () => {
+        hamburger.classList.remove('open');
+        mobileMenu.classList.remove('open');
+      });
+    });
+  </script>
 
 </body>
-
 </html>

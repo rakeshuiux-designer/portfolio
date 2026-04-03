@@ -1,169 +1,587 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="utf-8">
-  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RAKESH — Contact</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
 
-  <title>Rakesh Aala - Contact</title>
-  <meta content="" name="description">
-  <meta content="" name="keywords">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-  <!-- Favicons -->
-  <link href="assets/img/favicon.png" rel="icon">
-  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+    :root {
+      --bg: #0e0e0e;
+      --surface: #161616;
+      --border: #2a2a2a;
+      --accent: #e8ff4a;
+      --text: #f0f0f0;
+      --muted: #888;
+      --nav-height: 60px;
+    }
 
-  <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css?family=https://fonts.googleapis.com/css?family=Inconsolata:400,500,600,700|Raleway:400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+    html { scroll-behavior: smooth; }
 
-  <!-- Vendor CSS Files -->
-  <link href="assets/vendor/aos/aos.css" rel="stylesheet">
-  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
-  <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 300;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
 
-  <!-- Template Main CSS File -->
-  <link href="assets/css/style.css" rel="stylesheet">
+    /* ── Top bar ── */
+    .topbar {
+      background: var(--accent);
+      color: #000;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      text-align: center;
+      padding: 8px 16px;
+      line-height: 1.4;
+    }
 
+    /* ── Nav ── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--bg);
+      border-bottom: 1px solid var(--border);
+      height: var(--nav-height);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 24px;
+      gap: 16px;
+    }
 
+    .nav-logo {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 22px;
+      letter-spacing: 0.05em;
+      color: var(--text);
+      text-decoration: none;
+      flex-shrink: 0;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 4px;
+      list-style: none;
+      align-items: center;
+    }
+
+    .nav-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 400;
+      padding: 6px 12px;
+      border-radius: 4px;
+      transition: color 0.2s, background 0.2s;
+      white-space: nowrap;
+    }
+
+    .nav-links a:hover { color: var(--text); background: var(--surface); }
+    .nav-links li.active a { color: var(--accent); }
+
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      padding: 6px;
+      background: none;
+      border: none;
+    }
+    .hamburger span {
+      display: block;
+      width: 22px;
+      height: 2px;
+      background: var(--text);
+      border-radius: 2px;
+      transition: transform 0.3s, opacity 0.3s;
+    }
+    .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    .mobile-menu {
+      display: none;
+      position: fixed;
+      top: var(--nav-height);
+      left: 0; right: 0;
+      background: var(--bg);
+      border-bottom: 1px solid var(--border);
+      padding: 20px 24px;
+      z-index: 99;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 15px;
+      padding: 10px 0;
+      border-bottom: 1px solid var(--border);
+      transition: color 0.2s;
+    }
+    .mobile-menu a:last-child { border-bottom: none; }
+    .mobile-menu a:hover, .mobile-menu a.active { color: var(--accent); }
+
+    /* ── Hero ── */
+    .hero {
+      padding: 48px 24px 40px;
+    }
+
+    .hero-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 11px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 16px;
+    }
+    .hero-tag::before {
+      content: '';
+      display: block;
+      width: 24px;
+      height: 1px;
+      background: var(--accent);
+    }
+
+    .hero h1 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(48px, 10vw, 100px);
+      line-height: 0.9;
+      letter-spacing: 0.02em;
+      color: var(--text);
+      margin-bottom: 16px;
+    }
+
+    .hero h1 em {
+      color: var(--accent);
+      font-style: normal;
+    }
+
+    .hero-sub {
+      font-size: 14px;
+      color: var(--muted);
+      max-width: 480px;
+      line-height: 1.6;
+    }
+
+    /* ── Contact section ── */
+    .contact-section {
+      padding: 0 24px 80px;
+    }
+
+    .contact-wrap {
+      display: grid;
+      grid-template-columns: 1fr 380px;
+      gap: 64px;
+      align-items: start;
+      max-width: 1000px;
+    }
+
+    /* ── Form ── */
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: block;
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 8px;
+      font-weight: 500;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    textarea {
+      width: 100%;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 14px;
+      font-weight: 300;
+      padding: 12px 16px;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      outline: none;
+      -webkit-appearance: none;
+    }
+
+    input[type="text"]:focus,
+    input[type="email"]:focus,
+    textarea:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(232,255,74,0.08);
+    }
+
+    input::placeholder, textarea::placeholder { color: #555; }
+
+    textarea {
+      resize: vertical;
+      min-height: 160px;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .submit-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--accent);
+      color: #000;
+      border: none;
+      padding: 14px 32px;
+      border-radius: 6px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: opacity 0.2s, transform 0.2s;
+      width: 100%;
+      justify-content: center;
+      margin-top: 8px;
+    }
+
+    .submit-btn:hover { opacity: 0.88; transform: translateY(-1px); }
+    .submit-btn:active { transform: translateY(0); }
+
+    .form-status {
+      font-size: 13px;
+      margin-top: 12px;
+      display: none;
+      padding: 10px 14px;
+      border-radius: 6px;
+    }
+    .form-status.success {
+      display: block;
+      background: rgba(232,255,74,0.1);
+      color: var(--accent);
+      border: 1px solid rgba(232,255,74,0.2);
+    }
+    .form-status.error {
+      display: block;
+      background: rgba(255,80,80,0.1);
+      color: #ff6b6b;
+      border: 1px solid rgba(255,80,80,0.2);
+    }
+
+    /* ── Contact info sidebar ── */
+    .contact-info {
+      padding-top: 8px;
+    }
+
+    .info-item {
+      padding: 24px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .info-item:first-child { border-top: 1px solid var(--border); }
+
+    .info-label {
+      font-size: 10px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 8px;
+      font-weight: 500;
+    }
+
+    .info-value {
+      font-size: 15px;
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    .info-value a {
+      color: var(--text);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .info-value a:hover { color: var(--accent); }
+
+    /* Social links */
+    .social-links {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      padding: 24px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .social-label {
+      font-size: 10px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 4px;
+      font-weight: 500;
+    }
+
+    .social-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 14px;
+      transition: color 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .social-links a::before {
+      content: '↗';
+      font-size: 12px;
+      color: var(--border);
+    }
+    .social-links a:hover { color: var(--text); }
+
+    /* availability badge */
+    .availability {
+      margin-top: 32px;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: rgba(232,255,74,0.08);
+      border: 1px solid rgba(232,255,74,0.2);
+      border-radius: 100px;
+      padding: 10px 18px;
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--accent);
+    }
+
+    .availability-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--accent);
+      animation: pulse 2s ease infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(0.85); }
+    }
+
+    /* ── Footer ── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 32px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    footer .name {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 20px;
+      letter-spacing: 0.05em;
+    }
+
+    footer .copy {
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: 4px;
+    }
+
+    footer .contact-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 13px;
+      margin-left: 20px;
+      transition: color 0.2s;
+    }
+    footer .contact-links a:hover { color: var(--accent); }
+
+    /* ── Responsive ── */
+    @media (max-width: 900px) {
+      .contact-wrap {
+        grid-template-columns: 1fr;
+        gap: 48px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+      .hero { padding: 32px 20px 32px; }
+      .contact-section { padding: 0 16px 60px; }
+      footer { flex-direction: column; align-items: flex-start; }
+      footer .contact-links a { margin-left: 0; margin-right: 16px; }
+    }
+
+    @media (max-width: 480px) {
+      .form-row { grid-template-columns: 1fr; }
+    }
+  </style>
 </head>
 
 <body>
 
-  <!-- ======= Navbar ======= -->
-  <div class="navbar-collapse custom-navmenu" id="main-navbar">
-    <div class="container py-3 py-md-5">
-      <div class="row align-items-start">
-        <div class="col-md-3">
-          <ul class="custom-menu">
-		    <li><a href="https://rakeshuiux-designer.github.io/rakesh/">Rakesh Ala - CV</a></li>
-            <li><a href="https://rakeshuiux-designer.github.io/portfolio/">UX/UI Works</a></li>
-            <li><a href="graphic-design.html">Graphic Design Works</a></li>
-            <li class="active"><a href="contact.html">Contact Me</a></li>
-          </ul>
-        </div>
-        
-        <div class="col-md-9 d-none d-md-block">
-          <h3>I'm Rakesh - Ux Ui Designer | Graphic Designer </h3><h3>For the past 8+ Years, I'm working as a Full-time Freelance Ux/UI and Graphic Designer. Overall Experience is 20 years.</h3>
-          <p>In my professional journey, I've expertly designed mobile and web apps for a range of sectors—healthcare, fleet management, HRMS, Finance, Insurance, LMS, ERP, CRM, SaaS, and eCommerce..<br><strong style="color: aliceblue;">rakesh.leadux@gmail.com</strong> | <strong style="color: aliceblue;">+91 944 1230 700</strong></p>
-        </div>
-      </div>
-
-    </div>
+  <div class="topbar">
+    Available for Full-time / Part-time Remote Contractual Engagement
   </div>
 
-  <nav class="navbar navbar-light custom-navbar">
-    <div class="container">
-      <a class="navbar-brand" href="index.html">I'm immediately available for Full-time / Part-time Remote Working Contractual Engagement</a>
-    
-    </div>
+  <nav>
+    <a class="nav-logo" href="index.html">Rakesh</a>
+
+    <ul class="nav-links">
+      <li><a href="https://rakeshuiux-designer.github.io/rakesh/">CV</a></li>
+      <li><a href="index.html">UX/UI Works</a></li>
+      <li><a href="graphic-design.html">Graphic Design</a></li>
+      <li class="active"><a href="contact.html">Contact</a></li>
+    </ul>
+
+    <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </button>
   </nav>
 
-  <main id="main">
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="https://rakeshuiux-designer.github.io/rakesh/">Rakesh Ala — CV</a>
+    <a href="index.html">UX/UI Works</a>
+    <a href="graphic-design.html">Graphic Design Works</a>
+    <a href="contact.html" class="active">Contact Me</a>
+  </div>
 
-    <section class="section pb-5">
-      <div class="container">
+  <div class="hero">
+    <div class="hero-tag">Let's work together</div>
+    <h1>Get in<br><em>Touch</em></h1>
+    <p class="hero-sub">Open to full-time, part-time, and freelance remote engagements across UX/UI and Graphic Design.</p>
+  </div>
 
-        <div class="row mb-5 align-items-end">
-          <div class="col-md-6" data-aos="fade-up">
-            <h2>Contact</h2>
-           
-            </p>
+  <section class="contact-section">
+    <div class="contact-wrap">
+
+      <!-- Form -->
+      <div>
+        <form action="forms/contact.php" method="post">
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="name">Name</label>
+              <input type="text" id="name" name="name" placeholder="Your name" required>
+            </div>
+            <div class="form-group">
+              <label for="email">Email</label>
+              <input type="email" id="email" name="email" placeholder="your@email.com" required>
+            </div>
           </div>
 
+          <div class="form-group">
+            <label for="subject">Subject</label>
+            <input type="text" id="subject" name="subject" placeholder="What's this about?" required>
+          </div>
+
+          <div class="form-group">
+            <label for="message">Message</label>
+            <textarea id="message" name="message" placeholder="Tell me about your project..." required></textarea>
+          </div>
+
+          <button type="submit" class="submit-btn">
+            Send Message →
+          </button>
+
+          <div class="form-status" id="formStatus"></div>
+
+        </form>
+      </div>
+
+      <!-- Sidebar info -->
+      <div class="contact-info">
+
+        <div class="info-item">
+          <div class="info-label">Address</div>
+          <div class="info-value">OU Colony, Shaikpet<br>Hyderabad, Telangana<br>India — 500 008</div>
         </div>
 
-        <div class="row">
-          <div class="col-md-6 mb-5 mb-md-0" data-aos="fade-up">
-
-            <form action="forms/contact.php" method="post" role="form" class="php-email-form">
-
-              <div class="row gy-3">
-                <div class="col-md-6 form-group">
-                  <label for="name">Name</label>
-                  <input type="text" name="name" class="form-control" id="name" required>
-                </div>
-                <div class="col-md-6 form-group">
-                  <label for="name">Email</label>
-                  <input type="email" class="form-control" name="email" id="email" required>
-                </div>
-                <div class="col-md-12 form-group">
-                  <label for="name">Subject</label>
-                  <input type="text" class="form-control" name="subject" id="subject" required>
-                </div>
-                <div class="col-md-12 form-group">
-                  <label for="name">Message</label>
-                  <textarea class="form-control" name="message" cols="30" rows="10" required></textarea>
-                </div>
-
-                <div class="col-md-12 my-3">
-                  <div class="loading">Loading</div>
-                  <div class="error-message"></div>
-                  <div class="sent-message">Your message has been sent. Thank you!</div>
-                </div>
-
-                <div class="col-md-6 mt-0 form-group">
-                  <input type="submit" class="readmore d-block w-100" value="Send Message">
-                </div>
-              </div>
-
-            </form>
-
+        <div class="info-item">
+          <div class="info-label">Phone</div>
+          <div class="info-value">
+            <a href="tel:+919441230700">+91 944 1230 700</a>
           </div>
+        </div>
 
-          <div class="col-md-4 ml-auto order-2" data-aos="fade-up">
-            <ul class="list-unstyled">
-              <li class="mb-3">
-                <strong class="d-block mb-1">Address</strong>
-                <span>OU Colony, Shaikpet, Hyderabad, Telangana, India - 500 008</span>
-              </li>
-              <li class="mb-3">
-                <strong class="d-block mb-1">Phone</strong>
-                <span>+91 944 1230 700</span>
-              </li>
-              <li class="mb-3">
-                <strong class="d-block mb-1">Email</strong>
-                <span>rakesh.leadux@gmail.com</span>
-              </li>
-            </ul>
+        <div class="info-item">
+          <div class="info-label">Email</div>
+          <div class="info-value">
+            <a href="mailto:rakesh.leadux@gmail.com">rakesh.leadux@gmail.com</a>
           </div>
+        </div>
 
+        <div class="social-links">
+          <div class="social-label">Online</div>
+          <a href="https://rakeshuiux-designer.github.io/rakesh/" target="_blank">View CV / Resume</a>
+          <a href="https://rakeshuiux-designer.github.io/portfolio/" target="_blank">UX/UI Portfolio</a>
+          <a href="graphic-design.html">Graphic Design Portfolio</a>
+        </div>
+
+        <div class="availability">
+          <span class="availability-dot"></span>
+          Available for new projects
         </div>
 
       </div>
+    </div>
+  </section>
 
-    </section>
-
-  </main><!-- End #main -->
-
-    <!-- ======= Footer ======= -->
-  <footer class="footer" role="contentinfo">
-    <div class="container">
-      <div class="row">
-        <div class="col-sm-6">
-          <p class="mb-1">&copy;Copyright - Rakesh Aala. All Rights Reserved</p>
-          <div class="credits">
-           
-            Designed by <a href="#">Rakesh Aala</a>
-          </div>
-        </div>
-       
-      </div>
+  <footer>
+    <div>
+      <div class="name">Rakesh Ala</div>
+      <div class="copy">© Rakesh Ala. All Rights Reserved.</div>
+    </div>
+    <div class="contact-links">
+      <a href="mailto:rakesh.leadux@gmail.com">rakesh.leadux@gmail.com</a>
+      <a href="tel:+919441230700">+91 944 1230 700</a>
     </div>
   </footer>
 
-  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+  <script>
+    // Hamburger
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    hamburger.addEventListener('click', () => {
+      hamburger.classList.toggle('open');
+      mobileMenu.classList.toggle('open');
+    });
+    mobileMenu.querySelectorAll('a').forEach(a => {
+      a.addEventListener('click', () => {
+        hamburger.classList.remove('open');
+        mobileMenu.classList.remove('open');
+      });
+    });
 
-  <!-- Vendor JS Files -->
-  <script src="assets/vendor/aos/aos.js"></script>
-  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <script src="assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
-  <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
-  <script src="assets/vendor/php-email-form/validate.js"></script>
-
-  <!-- Template Main JS File -->
-  <script src="assets/js/main.js"></script>
+    // Form feedback (client-side fallback if PHP not available)
+    const form = document.querySelector('form');
+    const status = document.getElementById('formStatus');
+    form.addEventListener('submit', (e) => {
+      // Let PHP handle it if available; show optimistic feedback
+      status.textContent = 'Sending your message…';
+      status.className = 'form-status success';
+    });
+  </script>
 
 </body>
-
 </html>
