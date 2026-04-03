@@ -1,532 +1,672 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="utf-8">
-  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RAKESH — Graphic Design Works</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
 
-  <title>RAKESH - Graphic Design WORKS</title>
-  <meta content="" name="description">
-  <meta content="" name="keywords">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-  <!-- Favicons -->
-  <link href="assets/img/favicon.png" rel="icon">
-  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+    :root {
+      --bg: #0e0e0e;
+      --surface: #161616;
+      --border: #2a2a2a;
+      --accent: #e8ff4a;
+      --text: #f0f0f0;
+      --muted: #888;
+      --nav-height: 60px;
+    }
 
-  <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css?family=https://fonts.googleapis.com/css?family=Inconsolata:400,500,600,700|Raleway:400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+    html { scroll-behavior: smooth; }
 
-  <!-- Vendor CSS Files -->
-  <link href="assets/vendor/aos/aos.css" rel="stylesheet">
-  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
-  <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 300;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
 
-  <!-- Template Main CSS File -->
-  <link href="assets/css/style.css" rel="stylesheet">
+    /* ── Top bar ── */
+    .topbar {
+      background: var(--accent);
+      color: #000;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      text-align: center;
+      padding: 8px 16px;
+      line-height: 1.4;
+    }
 
-<style>
-.for-border {
-  border:1px solid;
-  border-color: #DEDFDF; 
-}
+    /* ── Nav ── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--bg);
+      border-bottom: 1px solid var(--border);
+      height: var(--nav-height);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 24px;
+      gap: 16px;
+    }
 
-#portfolio-grid{
-width:100%;
-}
+    .nav-logo {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 22px;
+      letter-spacing: 0.05em;
+      color: var(--text);
+      text-decoration: none;
+      flex-shrink: 0;
+    }
 
-.item{
-width:25%;
-padding:10px;
-float:left;
-}
+    .nav-links {
+      display: flex;
+      gap: 4px;
+      list-style: none;
+      align-items: center;
+    }
 
-.item img{
-width:100%;
-height:auto;
-display:block;
-border:1px solid #DEDFDF;
-border-radius:6px;
-}
+    .nav-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 400;
+      padding: 6px 12px;
+      border-radius: 4px;
+      transition: color 0.2s, background 0.2s;
+      white-space: nowrap;
+    }
 
-.item img:hover{
-transform:scale(1.03);
-}
+    .nav-links a:hover { color: var(--text); background: var(--surface); }
+    .nav-links li.active a { color: var(--accent); }
 
-/* Filters */
+    /* Hamburger */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      padding: 6px;
+      background: none;
+      border: none;
+    }
+    .hamburger span {
+      display: block;
+      width: 22px;
+      height: 2px;
+      background: var(--text);
+      border-radius: 2px;
+      transition: transform 0.3s, opacity 0.3s;
+    }
+    .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
-.filters{
-text-align:center;
-margin-bottom:40px;
-}
+    /* Mobile menu */
+    .mobile-menu {
+      display: none;
+      position: fixed;
+      top: var(--nav-height);
+      left: 0; right: 0;
+      background: var(--bg);
+      border-bottom: 1px solid var(--border);
+      padding: 20px 24px;
+      z-index: 99;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 15px;
+      padding: 10px 0;
+      border-bottom: 1px solid var(--border);
+      transition: color 0.2s;
+    }
+    .mobile-menu a:last-child { border-bottom: none; }
+    .mobile-menu a:hover, .mobile-menu a.active { color: var(--accent); }
 
-.filters a{
-display:inline-block;
-padding:8px 18px;
-margin:5px;
-border-radius:20px;
-background:#eee;
-text-decoration:none;
-color:#000;
-font-weight:500;
-}
+    /* ── Hero intro ── */
+    .hero {
+      padding: 48px 24px 32px;
+      max-width: 900px;
+    }
 
-.filters a.active{
-background:#000;
-color:#fff;
-}
+    .hero-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 11px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 16px;
+    }
+    .hero-tag::before {
+      content: '';
+      display: block;
+      width: 24px;
+      height: 1px;
+      background: var(--accent);
+    }
 
-/* Responsive */
+    .hero h1 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(48px, 10vw, 100px);
+      line-height: 0.9;
+      letter-spacing: 0.02em;
+      color: var(--text);
+      margin-bottom: 20px;
+    }
 
-@media(max-width:1200px){
-#portfolio-grid{
-column-count:3;
-}
-}
+    .hero h1 em {
+      color: var(--accent);
+      font-style: normal;
+    }
 
-@media(max-width:768px){
-#portfolio-grid{
-column-count:2;
-}
-}
+    .hero-meta {
+      display: flex;
+      gap: 24px;
+      flex-wrap: wrap;
+      font-size: 13px;
+      color: var(--muted);
+    }
 
-@media(max-width:480px){
-#portfolio-grid{
-column-count:1;
-}
-}
+    .hero-meta strong { color: var(--text); font-weight: 500; }
 
-</style>
+    /* ── Filters ── */
+    .filters-wrap {
+      padding: 0 24px 32px;
+      position: sticky;
+      top: var(--nav-height);
+      z-index: 90;
+      background: var(--bg);
+      padding-top: 16px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 32px;
+    }
 
+    .filters {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+      padding-bottom: 2px;
+    }
+
+    .filters::-webkit-scrollbar { display: none; }
+
+    .filters button {
+      flex-shrink: 0;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      color: var(--muted);
+      padding: 7px 16px;
+      border-radius: 100px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .filters button:hover {
+      color: var(--text);
+      border-color: #444;
+    }
+
+    .filters button.active {
+      background: var(--accent);
+      color: #000;
+      border-color: var(--accent);
+    }
+
+    /* ── Masonry Grid ── */
+    .portfolio-section { padding: 0 24px 64px; }
+
+    .grid {
+      columns: 4;
+      column-gap: 12px;
+    }
+
+    .grid-item {
+      break-inside: avoid;
+      margin-bottom: 12px;
+      border-radius: 8px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      cursor: pointer;
+      position: relative;
+    }
+
+    .grid-item img {
+      width: 100%;
+      height: auto;
+      display: block;
+      transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+
+    .grid-item::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.5) 0%, transparent 50%);
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    .grid-item:hover img { transform: scale(1.04); }
+    .grid-item:hover::after { opacity: 1; }
+
+    .grid-item.hidden { display: none; }
+
+    /* ── Lightbox ── */
+    .lightbox {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.94);
+      z-index: 1000;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    .lightbox.open { display: flex; }
+
+    .lightbox img {
+      max-width: 90vw;
+      max-height: 90vh;
+      object-fit: contain;
+      border-radius: 6px;
+      box-shadow: 0 32px 80px rgba(0,0,0,0.6);
+    }
+
+    .lightbox-close {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      color: var(--text);
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 20px;
+      line-height: 1;
+      transition: background 0.2s;
+    }
+    .lightbox-close:hover { background: #333; }
+
+    .lb-nav {
+      position: fixed;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.15);
+      color: var(--text);
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 20px;
+      transition: background 0.2s;
+      z-index: 1001;
+    }
+    .lb-nav:hover { background: rgba(255,255,255,0.18); }
+    .lb-prev { left: 16px; }
+    .lb-next { right: 16px; }
+
+    /* ── Footer ── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 32px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    footer .name {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 20px;
+      letter-spacing: 0.05em;
+    }
+
+    footer .contact a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 13px;
+      margin-left: 20px;
+      transition: color 0.2s;
+    }
+    footer .contact a:hover { color: var(--accent); }
+
+    /* ── Responsive Breakpoints ── */
+    @media (max-width: 1100px) {
+      .grid { columns: 3; }
+    }
+
+    @media (max-width: 768px) {
+      .grid { columns: 2; }
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+      .hero { padding: 32px 20px 24px; }
+      .portfolio-section { padding: 0 16px 48px; }
+      .filters-wrap { padding: 12px 16px; }
+      .grid { column-gap: 8px; }
+      .grid-item { margin-bottom: 8px; }
+    }
+
+    @media (max-width: 480px) {
+      .grid { columns: 1; }
+      .hero h1 { font-size: 48px; }
+      .lb-nav { display: none; }
+      .lightbox img { max-width: 95vw; max-height: 80vh; }
+    }
+
+    /* Fade-in animation */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(16px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .grid-item {
+      animation: fadeUp 0.4s ease both;
+    }
+  </style>
 </head>
 
 <body>
 
-  <!-- ======= Navbar ======= -->
-  <div class="navbar-collapse custom-navmenu" id="main-navbar">
-    <div class="container py-3 py-md-5">
-      <div class="row align-items-start">
-        <div class="col-md-3">
-          <ul class="custom-menu">
-		    <li><a href="https://rakeshuiux-designer.github.io/rakesh/">Rakesh Ala - CV</a></li>
-            <li><a href="https://rakeshuiux-designer.github.io/portfolio/">UX/UI Works</a></li>
-            <li class="active"><a href="graphic-design.html">Graphic Design Works</a></li>
-            <li><a href="contact.html">Contact Me</a></li>
-          </ul>
-        </div>
-        
-        <div class="col-md-9 d-none d-md-block">
-          <h3>I'm Rakesh - Ux Ui Designer | Graphic Designer </h3><h3>For the past 8+ Years, I'm working as a Full-time Freelance Ux/UI and Graphic Designer. Overall Experience is 20 years.</h3>
-          <p>In my professional journey, I've expertly designed mobile and web apps for a range of sectors—healthcare, fleet management, HRMS, Finance, Insurance, LMS, ERP, CRM, SaaS, and eCommerce..<br><strong style="color: aliceblue;">rakesh.leadux@gmail.com</strong> | <strong style="color: aliceblue;">+91 944 1230 700</strong></p>
-        </div>
-      </div>
+  <div class="topbar">
+    Available for Full-time / Part-time Remote Contractual Engagement
+  </div>
 
+  <nav>
+    <a class="nav-logo" href="index.html">Rakesh</a>
+
+    <ul class="nav-links">
+      <li><a href="https://rakeshuiux-designer.github.io/rakesh/">CV</a></li>
+      <li><a href="https://rakeshuiux-designer.github.io/portfolio/">UX/UI Works</a></li>
+      <li class="active"><a href="graphic-design.html">Graphic Design</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+
+    <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="https://rakeshuiux-designer.github.io/rakesh/">Rakesh Ala — CV</a>
+    <a href="https://rakeshuiux-designer.github.io/portfolio/">UX/UI Works</a>
+    <a href="graphic-design.html" class="active">Graphic Design Works</a>
+    <a href="contact.html">Contact Me</a>
+  </div>
+
+  <div class="hero">
+    <div class="hero-tag">Portfolio · 20 Years Experience</div>
+    <h1>Graphic<br><em>Design</em></h1>
+    <div class="hero-meta">
+      <span><strong>UX/UI</strong> & Graphic Designer</span>
+      <span>Freelance · <strong>8+ years</strong></span>
+      <span>rakesh.leadux@gmail.com</span>
+      <span>+91 944 1230 700</span>
     </div>
   </div>
 
-  <nav class="navbar navbar-light custom-navbar">
-    <div class="container">
-      <a class="navbar-brand" href="index.html">I'm immediately available for Full-time / Part-time Remote Working Contractual Engagement</a>
-    
+  <div class="filters-wrap">
+    <div class="filters">
+      <button class="active" data-filter="all">All Work</button>
+      <button data-filter="brochure">Brochures</button>
+      <button data-filter="ads">Ads</button>
+      <button data-filter="branding">Branding</button>
+      <button data-filter="logo">Logo</button>
     </div>
-  </nav>
-
-  <main id="main">
-	
-	
-	
-     <!-- ======= Works Section ======= -->
-    <section class="section site-portfolio">
-      <div class="container">
-       
-        <div id="portfolio-grid">
-
-<div class="item web">
-<img src="assets/img/graphic-portfolio/brochure/01.png">
-</div>
-
-<div class="item design">
-<img src="assets/img/graphic-portfolio/brochure/02.png">
-</div>
-
-<div class="item branding">
-<img src="assets/img/graphic-portfolio/brochure/03.jpg">
-</div>
-
-<div class="item photography">
-<img src="assets/img/graphic-portfolio/brochure/04.png">
-</div>
-
-<div class="item web">
-<img src="assets/img/graphic-portfolio/brochure/05.png">
-</div>
-
-<div class="item design">
-<img src="assets/img/graphic-portfolio/brochure/06.png">
-</div>
-
-<div class="item branding">
-<img src="assets/img/graphic-portfolio/brochure/07.png">
-</div>
-
-<div class="item photography">
-<img src="assets/img/graphic-portfolio/brochure/08.png">
-</div>
+  </div>
+
+  <section class="portfolio-section">
+    <div class="grid" id="portfolioGrid">
+
+      <!-- Brochures -->
+      <div class="grid-item" data-cat="brochure"><img src="assets/img/graphic-portfolio/brochure/01.png" loading="lazy"></div>
+      <div class="grid-item" data-cat="brochure"><img src="assets/img/graphic-portfolio/brochure/02.png" loading="lazy"></div>
+      <div class="grid-item" data-cat="brochure"><img src="assets/img/graphic-portfolio/brochure/03.jpg" loading="lazy"></div>
+      <div class="grid-item" data-cat="brochure"><img src="assets/img/graphic-portfolio/brochure/04.png" loading="lazy"></div>
+      <div class="grid-item" data-cat="brochure"><img src="assets/img/graphic-portfolio/brochure/05.png" loading="lazy"></div>
+      <div class="grid-item" data-cat="brochure"><img src="assets/img/graphic-portfolio/brochure/06.png" loading="lazy"></div>
+      <div class="grid-item" data-cat="brochure"><img src="assets/img/graphic-portfolio/brochure/07.png" loading="lazy"></div>
+      <div class="grid-item" data-cat="brochure"><img src="assets/img/graphic-portfolio/brochure/08.png" loading="lazy"></div>
+      <div class="grid-item" data-cat="brochure"><img src="assets/img/graphic-portfolio/brochure/09.png" loading="lazy"></div>
+      <div class="grid-item" data-cat="brochure"><img src="assets/img/graphic-portfolio/brochure/10.png" loading="lazy"></div>
+      <div class="grid-item" data-cat="brochure"><img src="assets/img/graphic-portfolio/brochure/11.jpg" loading="lazy"></div>
+      <div class="grid-item" data-cat="brochure"><img src="assets/img/graphic-portfolio/brochure/12.jpg" loading="lazy"></div>
+      <div class="grid-item" data-cat="brochure"><img src="assets/img/graphic-portfolio/brochure/13.png" loading="lazy"></div>
+      <div class="grid-item" data-cat="brochure"><img src="assets/img/graphic-portfolio/brochure/14.jpg" loading="lazy"></div>
+      <div class="grid-item" data-cat="brochure"><img src="assets/img/graphic-portfolio/brochure/15.jpg" loading="lazy"></div>
+      <div class="grid-item" data-cat="brochure"><img src="assets/img/graphic-portfolio/brochure/16.jpg" loading="lazy"></div>
+      <div class="grid-item" data-cat="brochure"><img src="assets/img/graphic-portfolio/brochure/17.jpg" loading="lazy"></div>
+      <div class="grid-item" data-cat="brochure"><img src="assets/img/graphic-portfolio/brochure/18.png" loading="lazy"></div>
+      <div class="grid-item" data-cat="brochure"><img src="assets/img/graphic-portfolio/brochure/19.png" loading="lazy"></div>
+      <div class="grid-item" data-cat="brochure"><img src="assets/img/graphic-portfolio/brochure/20.png" loading="lazy"></div>
+      <div class="grid-item" data-cat="brochure"><img src="assets/img/graphic-portfolio/brochure/21.png" loading="lazy"></div>
+      <div class="grid-item" data-cat="brochure"><img src="assets/img/graphic-portfolio/brochure/22.png" loading="lazy"></div>
+      <div class="grid-item" data-cat="brochure"><img src="assets/img/graphic-portfolio/brochure/23.png" loading="lazy"></div>
+      <div class="grid-item" data-cat="brochure"><img src="assets/img/graphic-portfolio/brochure/24.png" loading="lazy"></div>
+      <div class="grid-item" data-cat="brochure"><img src="assets/img/graphic-portfolio/brochure/25.png" loading="lazy"></div>
+      <div class="grid-item" data-cat="brochure"><img src="assets/img/graphic-portfolio/brochure/26.png" loading="lazy"></div>
+      <div class="grid-item" data-cat="brochure"><img src="assets/img/graphic-portfolio/brochure/27.png" loading="lazy"></div>
+      <div class="grid-item" data-cat="brochure"><img src="assets/img/graphic-portfolio/brochure/28.png" loading="lazy"></div>
+      <div class="grid-item" data-cat="brochure"><img src="assets/img/graphic-portfolio/brochure/29.png" loading="lazy"></div>
+      <div class="grid-item" data-cat="brochure"><img src="assets/img/graphic-portfolio/brochure/30.png" loading="lazy"></div>
+      <div class="grid-item" data-cat="brochure"><img src="assets/img/graphic-portfolio/brochure/31.png" loading="lazy"></div>
+      <div class="grid-item" data-cat="brochure"><img src="assets/img/graphic-portfolio/brochure/32.png" loading="lazy"></div>
+
+      <!-- Ads -->
+      <div class="grid-item" data-cat="ads"><img src="assets/img/graphic-portfolio/ads/1.png" loading="lazy"></div>
+      <div class="grid-item" data-cat="ads"><img src="assets/img/graphic-portfolio/ads/2.png" loading="lazy"></div>
+      <div class="grid-item" data-cat="ads"><img src="assets/img/graphic-portfolio/ads/3.png" loading="lazy"></div>
+      <div class="grid-item" data-cat="ads"><img src="assets/img/graphic-portfolio/ads/4.png" loading="lazy"></div>
+      <div class="grid-item" data-cat="ads"><img src="assets/img/graphic-portfolio/ads/5.png" loading="lazy"></div>
+      <div class="grid-item" data-cat="ads"><img src="assets/img/graphic-portfolio/ads/6.jpg" loading="lazy"></div>
+      <div class="grid-item" data-cat="ads"><img src="assets/img/graphic-portfolio/ads/7.png" loading="lazy"></div>
+      <div class="grid-item" data-cat="ads"><img src="assets/img/graphic-portfolio/ads/8.png" loading="lazy"></div>
+      <div class="grid-item" data-cat="ads"><img src="assets/img/graphic-portfolio/ads/9.gif" loading="lazy"></div>
+      <div class="grid-item" data-cat="ads"><img src="assets/img/graphic-portfolio/ads/10.png" loading="lazy"></div>
+      <div class="grid-item" data-cat="ads"><img src="assets/img/graphic-portfolio/ads/11.jpg" loading="lazy"></div>
+      <div class="grid-item" data-cat="ads"><img src="assets/img/graphic-portfolio/ads/12.jpg" loading="lazy"></div>
+      <div class="grid-item" data-cat="ads"><img src="assets/img/graphic-portfolio/ads/13.jpg" loading="lazy"></div>
+
+      <!-- Branding -->
+      <div class="grid-item" data-cat="branding"><img src="assets/img/graphic-portfolio/branding/1.jpg" loading="lazy"></div>
+      <div class="grid-item" data-cat="branding"><img src="assets/img/graphic-portfolio/branding/2.jpg" loading="lazy"></div>
+      <div class="grid-item" data-cat="branding"><img src="assets/img/graphic-portfolio/branding/3.png" loading="lazy"></div>
+      <div class="grid-item" data-cat="branding"><img src="assets/img/graphic-portfolio/branding/4.png" loading="lazy"></div>
+      <div class="grid-item" data-cat="branding"><img src="assets/img/graphic-portfolio/branding/5.png" loading="lazy"></div>
+      <div class="grid-item" data-cat="branding"><img src="assets/img/graphic-portfolio/branding/6.jpg" loading="lazy"></div>
+      <div class="grid-item" data-cat="branding"><img src="assets/img/graphic-portfolio/branding/7.png" loading="lazy"></div>
+      <div class="grid-item" data-cat="branding"><img src="assets/img/graphic-portfolio/branding/8.png" loading="lazy"></div>
+      <div class="grid-item" data-cat="branding"><img src="assets/img/graphic-portfolio/branding/9.jpg" loading="lazy"></div>
+      <div class="grid-item" data-cat="branding"><img src="assets/img/graphic-portfolio/branding/10.jpg" loading="lazy"></div>
+      <div class="grid-item" data-cat="branding"><img src="assets/img/graphic-portfolio/branding/11.jpg" loading="lazy"></div>
+      <div class="grid-item" data-cat="branding"><img src="assets/img/graphic-portfolio/branding/12.jpg" loading="lazy"></div>
+
+      <!-- Logos -->
+      <div class="grid-item" data-cat="logo"><img src="assets/img/graphic-portfolio/logo/1.jpg" loading="lazy"></div>
+      <div class="grid-item" data-cat="logo"><img src="assets/img/graphic-portfolio/logo/2.png" loading="lazy"></div>
+      <div class="grid-item" data-cat="logo"><img src="assets/img/graphic-portfolio/logo/3.png" loading="lazy"></div>
+      <div class="grid-item" data-cat="logo"><img src="assets/img/graphic-portfolio/logo/4.jpg" loading="lazy"></div>
+      <div class="grid-item" data-cat="logo"><img src="assets/img/graphic-portfolio/logo/5.jpg" loading="lazy"></div>
+      <div class="grid-item" data-cat="logo"><img src="assets/img/graphic-portfolio/logo/6.png" loading="lazy"></div>
+      <div class="grid-item" data-cat="logo"><img src="assets/img/graphic-portfolio/logo/7.jpg" loading="lazy"></div>
+      <div class="grid-item" data-cat="logo"><img src="assets/img/graphic-portfolio/logo/8.png" loading="lazy"></div>
+      <div class="grid-item" data-cat="logo"><img src="assets/img/graphic-portfolio/logo/9.png" loading="lazy"></div>
+      <div class="grid-item" data-cat="logo"><img src="assets/img/graphic-portfolio/logo/10.png" loading="lazy"></div>
+      <div class="grid-item" data-cat="logo"><img src="assets/img/graphic-portfolio/logo/11.jpg" loading="lazy"></div>
+      <div class="grid-item" data-cat="logo"><img src="assets/img/graphic-portfolio/logo/12.png" loading="lazy"></div>
+      <div class="grid-item" data-cat="logo"><img src="assets/img/graphic-portfolio/logo/13.png" loading="lazy"></div>
+      <div class="grid-item" data-cat="logo"><img src="assets/img/graphic-portfolio/logo/14.jpg" loading="lazy"></div>
+      <div class="grid-item" data-cat="logo"><img src="assets/img/graphic-portfolio/logo/15.png" loading="lazy"></div>
+      <div class="grid-item" data-cat="logo"><img src="assets/img/graphic-portfolio/logo/16.png" loading="lazy"></div>
+      <div class="grid-item" data-cat="logo"><img src="assets/img/graphic-portfolio/logo/17.jpg" loading="lazy"></div>
+      <div class="grid-item" data-cat="logo"><img src="assets/img/graphic-portfolio/logo/18.png" loading="lazy"></div>
+      <div class="grid-item" data-cat="logo"><img src="assets/img/graphic-portfolio/logo/19.jpg" loading="lazy"></div>
+      <div class="grid-item" data-cat="logo"><img src="assets/img/graphic-portfolio/logo/20.jpg" loading="lazy"></div>
+      <div class="grid-item" data-cat="logo"><img src="assets/img/graphic-portfolio/logo/21.jpg" loading="lazy"></div>
+      <div class="grid-item" data-cat="logo"><img src="assets/img/graphic-portfolio/logo/22.jpg" loading="lazy"></div>
+      <div class="grid-item" data-cat="logo"><img src="assets/img/graphic-portfolio/logo/23.png" loading="lazy"></div>
+      <div class="grid-item" data-cat="logo"><img src="assets/img/graphic-portfolio/logo/24.png" loading="lazy"></div>
+      <div class="grid-item" data-cat="logo"><img src="assets/img/graphic-portfolio/logo/25.png" loading="lazy"></div>
+      <div class="grid-item" data-cat="logo"><img src="assets/img/graphic-portfolio/logo/26.png" loading="lazy"></div>
+      <div class="grid-item" data-cat="logo"><img src="assets/img/graphic-portfolio/logo/27.jpg" loading="lazy"></div>
+      <div class="grid-item" data-cat="logo"><img src="assets/img/graphic-portfolio/logo/28.png" loading="lazy"></div>
+      <div class="grid-item" data-cat="logo"><img src="assets/img/graphic-portfolio/logo/29.png" loading="lazy"></div>
+
+    </div>
+  </section>
+
+  <!-- Lightbox -->
+  <div class="lightbox" id="lightbox">
+    <button class="lightbox-close" id="lbClose">✕</button>
+    <button class="lb-nav lb-prev" id="lbPrev">‹</button>
+    <img id="lbImg" src="" alt="">
+    <button class="lb-nav lb-next" id="lbNext">›</button>
+  </div>
+
+  <footer>
+    <div class="name">Rakesh Ala</div>
+    <div class="contact">
+      <a href="mailto:rakesh.leadux@gmail.com">rakesh.leadux@gmail.com</a>
+      <a href="tel:+919441230700">+91 944 1230 700</a>
+    </div>
+  </footer>
+
+  <script>
+    // ── Hamburger ──
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    hamburger.addEventListener('click', () => {
+      hamburger.classList.toggle('open');
+      mobileMenu.classList.toggle('open');
+    });
+
+    // Close mobile menu on link click
+    mobileMenu.querySelectorAll('a').forEach(a => {
+      a.addEventListener('click', () => {
+        hamburger.classList.remove('open');
+        mobileMenu.classList.remove('open');
+      });
+    });
+
+    // ── Filters ──
+    const filterBtns = document.querySelectorAll('.filters button');
+    const items = document.querySelectorAll('.grid-item');
+
+    filterBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        filterBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+
+        const filter = btn.dataset.filter;
+        let delay = 0;
+
+        items.forEach(item => {
+          if (filter === 'all' || item.dataset.cat === filter) {
+            item.classList.remove('hidden');
+            item.style.animationDelay = delay + 'ms';
+            item.style.animation = 'none';
+            requestAnimationFrame(() => {
+              item.style.animation = '';
+            });
+            delay += 20;
+          } else {
+            item.classList.add('hidden');
+          }
+        });
+      });
+    });
+
+    // ── Lightbox ──
+    let visibleItems = [];
+    let currentIndex = 0;
+
+    function getVisible() {
+      return Array.from(items).filter(i => !i.classList.contains('hidden'));
+    }
+
+    function openLightbox(index) {
+      visibleItems = getVisible();
+      currentIndex = index;
+      const src = visibleItems[currentIndex].querySelector('img').src;
+      document.getElementById('lbImg').src = src;
+      document.getElementById('lightbox').classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeLightbox() {
+      document.getElementById('lightbox').classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    function navigate(dir) {
+      currentIndex = (currentIndex + dir + visibleItems.length) % visibleItems.length;
+      document.getElementById('lbImg').src = visibleItems[currentIndex].querySelector('img').src;
+    }
+
+    items.forEach((item, i) => {
+      item.addEventListener('click', () => {
+        const visible = getVisible();
+        const visIdx = visible.indexOf(item);
+        openLightbox(visIdx);
+      });
+    });
+
+    document.getElementById('lbClose').addEventListener('click', closeLightbox);
+    document.getElementById('lbPrev').addEventListener('click', () => navigate(-1));
+    document.getElementById('lbNext').addEventListener('click', () => navigate(1));
+
+    document.getElementById('lightbox').addEventListener('click', e => {
+      if (e.target === document.getElementById('lightbox')) closeLightbox();
+    });
+
+    document.addEventListener('keydown', e => {
+      if (!document.getElementById('lightbox').classList.contains('open')) return;
+      if (e.key === 'Escape') closeLightbox();
+      if (e.key === 'ArrowLeft') navigate(-1);
+      if (e.key === 'ArrowRight') navigate(1);
+    });
+
+    // Touch swipe for lightbox
+    let touchStartX = 0;
+    document.getElementById('lightbox').addEventListener('touchstart', e => {
+      touchStartX = e.touches[0].clientX;
+    });
+    document.getElementById('lightbox').addEventListener('touchend', e => {
+      const diff = touchStartX - e.changedTouches[0].clientX;
+      if (Math.abs(diff) > 50) navigate(diff > 0 ? 1 : -1);
+    });
+  </script>
 
-<div class="item web">
-<img src="assets/img/graphic-portfolio/brochure/09.png">
-</div>
-
-<div class="item design">
-<img src="assets/img/graphic-portfolio/brochure/10.png">
-</div>
-
-<div class="item branding">
-<img src="assets/img/graphic-portfolio/brochure/11.jpg">
-</div>
-
-<div class="item photography">
-<img src="assets/img/graphic-portfolio/brochure/12.jpg">
-</div>
-
-<div class="item web">
-<img src="assets/img/graphic-portfolio/brochure/13.png">
-</div>
-
-<div class="item design">
-<img src="assets/img/graphic-portfolio/brochure/14.jpg">
-</div>
-
-<div class="item branding">
-<img src="assets/img/graphic-portfolio/brochure/15.jpg">
-</div>
-
-<div class="item photography">
-<img src="assets/img/graphic-portfolio/brochure/16.jpg">
-</div>
-
-<div class="item web">
-<img src="assets/img/graphic-portfolio/brochure/17.jpg">
-</div>
-
-<div class="item branding">
-<img src="assets/img/graphic-portfolio/brochure/18.png">
-</div>
-
-<div class="item photography">
-<img src="assets/img/graphic-portfolio/brochure/19.png">
-</div>
-
-<div class="item web">
-<img src="assets/img/graphic-portfolio/brochure/20.png">
-</div>
-
-<div class="item photography">
-<img src="assets/img/graphic-portfolio/brochure/21.png">
-</div>
-
-<div class="item web">
-<img src="assets/img/graphic-portfolio/brochure/22.png">
-</div>
-
-<div class="item web">
-<img src="assets/img/graphic-portfolio/brochure/23.png">
-</div>
-
-<div class="item web">
-<img src="assets/img/graphic-portfolio/brochure/24.png">
-</div>
-
-<div class="item web">
-<img src="assets/img/graphic-portfolio/brochure/25.png">
-</div>
-
-<div class="item web">
-<img src="assets/img/graphic-portfolio/brochure/26.png">
-</div>
-
-<div class="item web">
-<img src="assets/img/graphic-portfolio/brochure/27.png">
-</div>
-
-<div class="item web">
-<img src="assets/img/graphic-portfolio/brochure/28.png">
-</div>
-
-<div class="item web">
-<img src="assets/img/graphic-portfolio/brochure/29.png">
-</div>
-
-<div class="item web">
-<img src="assets/img/graphic-portfolio/brochure/30.png">
-</div>
-
-<div class="item web">
-<img src="assets/img/graphic-portfolio/brochure/31.png">
-</div>
-
-<div class="item web">
-<img src="assets/img/graphic-portfolio/brochure/32.png">
-</div>
-
-
-
-<div class="item branding">
-<img src="assets/img/graphic-portfolio/ads/1.png">
-</div>
-
-<div class="item photography">
-<img src="assets/img/graphic-portfolio/ads/2.png">
-</div>
-
-<div class="item web">
-<img src="assets/img/graphic-portfolio/ads/3.png">
-</div>
-
-<div class="item design">
-<img src="assets/img/graphic-portfolio/ads/4.png">
-</div>
-
-<div class="item branding">
-<img src="assets/img/graphic-portfolio/ads/5.png">
-</div>
-
-<div class="item photography">
-<img src="assets/img/graphic-portfolio/ads/6.jpg">
-</div>
-
-<div class="item web">
-<img src="assets/img/graphic-portfolio/ads/7.png">
-</div>
-
-<div class="item branding">
-<img src="assets/img/graphic-portfolio/ads/8.png">
-</div>
-
-<div class="item photography">
-<img src="assets/img/graphic-portfolio/ads/9.gif">
-</div>
-
-<div class="item web">
-<img src="assets/img/graphic-portfolio/ads/10.png">
-</div>
-
-<div class="item branding">
-<img src="assets/img/graphic-portfolio/ads/11.jpg">
-</div>
-
-<div class="item photography">
-<img src="assets/img/graphic-portfolio/ads/12.jpg">
-</div>
-
-<div class="item web">
-<img src="assets/img/graphic-portfolio/ads/13.jpg">
-</div>
-
-<div class="item photography">
-<img src="assets/img/graphic-portfolio/branding/1.jpg">
-</div>
-
-<div class="item web">
-<img src="assets/img/graphic-portfolio/branding/2.jpg">
-</div>
-
-<div class="item design">
-<img src="assets/img/graphic-portfolio/branding/3.png">
-</div>
-
-<div class="item branding">
-<img src="assets/img/graphic-portfolio/branding/4.png">
-</div>
-
-<div class="item photography">
-<img src="assets/img/graphic-portfolio/branding/5.png">
-</div>
-
-<div class="item web">
-<img src="assets/img/graphic-portfolio/branding/6.jpg">
-</div>
-
-<div class="item branding">
-<img src="assets/img/graphic-portfolio/branding/7.png">
-</div>
-
-<div class="item photography">
-<img src="assets/img/graphic-portfolio/branding/8.png">
-</div>
-
-<div class="item web">
-<img src="assets/img/graphic-portfolio/branding/9.jpg">
-</div>
-
-<div class="item branding">
-<img src="assets/img/graphic-portfolio/branding/10.jpg">
-</div>
-
-<div class="item photography">
-<img src="assets/img/graphic-portfolio/branding/11.jpg">
-</div>
-
-<div class="item web">
-<img src="assets/img/graphic-portfolio/branding/12.jpg">
-</div>
-
-<div class="item web">
-<img src="assets/img/graphic-portfolio/logo/1.jpg">
-</div>
-
-<div class="item web">
-<img src="assets/img/graphic-portfolio/logo/2.png">
-</div>
-
-<div class="item web">
-<img src="assets/img/graphic-portfolio/logo/3.png">
-</div>
-
-<div class="item web">
-<img src="assets/img/graphic-portfolio/logo/4.jpg">
-</div>
-
-<div class="item web">
-<img src="assets/img/graphic-portfolio/logo/5.jpg">
-</div>
-
-<div class="item web">
-<img src="assets/img/graphic-portfolio/logo/6.png">
-</div>
-
-<div class="item web">
-<img src="assets/img/graphic-portfolio/logo/7.jpg">
-</div>
-
-<div class="item web">
-<img src="assets/img/graphic-portfolio/logo/8.png">
-</div>
-
-<div class="item web">
-<img src="assets/img/graphic-portfolio/logo/9.png">
-</div>
-
-<div class="item web">
-<img src="assets/img/graphic-portfolio/logo/10.png">
-</div>
-
-<div class="item web">
-<img src="assets/img/graphic-portfolio/logo/11.jpg">
-</div>
-
-<div class="item web">
-<img src="assets/img/graphic-portfolio/logo/12.png">
-</div>
-
-<div class="item web">
-<img src="assets/img/graphic-portfolio/logo/13.png">
-</div>
-
-<div class="item web">
-<img src="assets/img/graphic-portfolio/logo/14.jpg">
-</div>
-
-<div class="item web">
-<img src="assets/img/graphic-portfolio/logo/15.png">
-</div>
-
-<div class="item web">
-<img src="assets/img/graphic-portfolio/logo/16.png">
-</div>
-
-<div class="item web">
-<img src="assets/img/graphic-portfolio/logo/17.jpg">
-</div>
-
-<div class="item web">
-<img src="assets/img/graphic-portfolio/logo/18.png">
-</div>
-
-<div class="item web">
-<img src="assets/img/graphic-portfolio/logo/19.jpg">
-</div>
-
-<div class="item web">
-<img src="assets/img/graphic-portfolio/logo/20.jpg">
-</div>
-
-<div class="item web">
-<img src="assets/img/graphic-portfolio/logo/21.jpg">
-</div>
-
-<div class="item web">
-<img src="assets/img/graphic-portfolio/logo/22.jpg">
-</div>
-
-<div class="item web">
-<img src="assets/img/graphic-portfolio/logo/23.png">
-</div>
-
-<div class="item web">
-<img src="assets/img/graphic-portfolio/logo/24.png">
-</div>
-
-<div class="item web">
-<img src="assets/img/graphic-portfolio/logo/25.png">
-</div>
-
-<div class="item web">
-<img src="assets/img/graphic-portfolio/logo/26.png">
-</div>
-
-<div class="item web">
-<img src="assets/img/graphic-portfolio/logo/27.jpg">
-</div>
-
-<div class="item web">
-<img src="assets/img/graphic-portfolio/logo/28.png">
-</div>
-
-<div class="item web">
-<img src="assets/img/graphic-portfolio/logo/29.png">
-</div>
-
-
-</div>
-      </div>
-    </section><!-- End  Works Section -->
- </main><!-- End #main -->
-
-
-
-
-  <!-- Vendor JS Files -->
-  <script src="assets/vendor/aos/aos.js"></script>
-  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <script src="assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
-  <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
-  <script src="assets/vendor/php-email-form/validate.js"></script>
-
-  <!-- Template Main JS File -->
-  <script src="assets/js/main.js"></script>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
-<script>
-$('.filters a').click(function(e){
-
-e.preventDefault();
-
-$('.filters a').removeClass('active');
-$(this).addClass('active');
-
-var filter = $(this).data('filter');
-
-if(filter == "*"){
-$('#portfolio-grid .item').show();
-}else{
-$('#portfolio-grid .item').hide();
-$('#portfolio-grid .' + filter).show();
-}
-
-});
-
-</script>
 </body>
-
 </html>
