@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>RAKESH — Overdue Recovery Mobile & Web B2B App</title>
+  <title>RAKESH — Burgan Bank — Kiosk Employee Self Service</title>
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -14,11 +14,7 @@
     }
     html { scroll-behavior: smooth; }
     body { background: var(--bg); color: var(--text); font-family: 'DM Sans', sans-serif; font-weight: 300; min-height: 100vh; overflow-x: hidden; }
-
-    /* ── Topbar ── */
     .topbar { background: var(--accent); color: #000; font-size: 11px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; text-align: center; padding: 8px 16px; line-height: 1.4; }
-
-    /* ── Nav ── */
     nav { position: sticky; top: 0; z-index: 100; background: var(--bg); border-bottom: 1px solid var(--border); height: var(--nav-height); display: flex; align-items: center; justify-content: space-between; padding: 0 24px; gap: 16px; }
     .nav-logo { font-family: 'Bebas Neue', sans-serif; font-size: 22px; letter-spacing: 0.05em; color: var(--text); text-decoration: none; flex-shrink: 0; }
     .nav-links { display: flex; gap: 4px; list-style: none; align-items: center; }
@@ -35,42 +31,19 @@
     .mobile-menu a { color: var(--muted); text-decoration: none; font-size: 15px; padding: 10px 0; border-bottom: 1px solid var(--border); transition: color 0.2s; }
     .mobile-menu a:last-child { border-bottom: none; }
     .mobile-menu a:hover, .mobile-menu a.active { color: var(--accent); }
-
-    /* ── Back link ── */
     .back-link { padding: 20px 24px 0; }
     .back-link a { display: inline-flex; align-items: center; gap: 8px; color: var(--muted); text-decoration: none; font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; font-weight: 500; transition: color 0.2s; }
     .back-link a:hover { color: var(--accent); }
-
-    /* ── Hero ── */
     .case-hero { padding: 32px 24px 40px; border-bottom: 1px solid var(--border); }
     .hero-tag { display: inline-flex; align-items: center; gap: 8px; font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); margin-bottom: 16px; }
     .hero-tag::before { content: ''; display: block; width: 24px; height: 1px; background: var(--accent); }
     .case-hero h1 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(36px, 7vw, 80px); line-height: 0.92; letter-spacing: 0.02em; color: var(--text); margin-bottom: 20px; max-width: 800px; }
     .case-hero p { font-size: 15px; color: #aaa; line-height: 1.8; max-width: 640px; }
-
-    /* ── Main layout ── */
     .case-body { display: grid; grid-template-columns: 1fr 280px; gap: 0; }
-
-    /* ── Image grid: 2 per row ── */
     .case-images { padding: 40px 40px 64px 24px; border-right: 1px solid var(--border); }
-    .images-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 12px;
-    }
-    .images-grid img {
-      width: 100%;
-      height: auto;
-      display: block;
-      border-radius: 8px;
-      border: 1px solid var(--border);
-      transition: transform 0.3s, border-color 0.3s;
-      cursor: zoom-in;
-      aspect-ratio: auto;
-    }
+    .images-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .images-grid img { width: 100%; height: auto; display: block; border-radius: 8px; border: 1px solid var(--border); transition: transform 0.3s, border-color 0.3s; cursor: zoom-in; }
     .images-grid img:hover { transform: scale(1.02); border-color: #444; }
-
-    /* ── Sidebar ── */
     .case-sidebar { padding: 40px 24px 64px; position: sticky; top: var(--nav-height); height: fit-content; }
     .sidebar-block { margin-bottom: 36px; }
     .sidebar-label { font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent); font-weight: 500; margin-bottom: 14px; padding-bottom: 10px; border-bottom: 1px solid var(--border); }
@@ -84,8 +57,6 @@
     .proj-nav-link:hover { border-color: #444; background: var(--surface); }
     .proj-nav-dir { font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
     .proj-nav-title { font-size: 13px; color: var(--text); font-weight: 400; }
-
-    /* ── Lightbox ── */
     .lightbox { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.96); z-index: 1000; align-items: center; justify-content: center; padding: 20px; }
     .lightbox.open { display: flex; }
     .lightbox img { max-width: 90vw; max-height: 90vh; object-fit: contain; border-radius: 6px; box-shadow: 0 32px 80px rgba(0,0,0,0.6); }
@@ -95,18 +66,12 @@
     .lb-nav:hover { background: rgba(255,255,255,0.18); }
     .lb-prev { left: 16px; }
     .lb-next { right: 16px; }
-
-    /* ── Footer ── */
     footer { border-top: 1px solid var(--border); padding: 32px 24px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px; }
     footer .fname { font-family: 'Bebas Neue', sans-serif; font-size: 20px; letter-spacing: 0.05em; }
     footer .fcopy { font-size: 12px; color: var(--muted); margin-top: 4px; }
     footer .flinks a { color: var(--muted); text-decoration: none; font-size: 13px; margin-left: 20px; transition: color 0.2s; }
     footer .flinks a:hover { color: var(--accent); }
-
-    /* ── Responsive ── */
-    @media (max-width: 1100px) {
-      .case-body { grid-template-columns: 1fr 260px; }
-    }
+    @media (max-width: 1100px) { .case-body { grid-template-columns: 1fr 260px; } }
     @media (max-width: 900px) {
       .case-body { grid-template-columns: 1fr; }
       .case-images { padding: 32px 20px 40px; border-right: none; border-bottom: 1px solid var(--border); }
@@ -122,15 +87,11 @@
       footer .flinks a { margin-left: 0; margin-right: 16px; }
       .lb-nav { display: none; }
     }
-    @media (max-width: 480px) {
-      .images-grid { grid-template-columns: 1fr; }
-    }
+    @media (max-width: 480px) { .images-grid { grid-template-columns: 1fr; } }
   </style>
 </head>
 <body>
-
   <div class="topbar">Available for Full-time / Part-time Remote Contractual Engagement</div>
-
   <nav>
     <a class="nav-logo" href="index.html">Rakesh</a>
     <ul class="nav-links">
@@ -143,86 +104,83 @@
       <span></span><span></span><span></span>
     </button>
   </nav>
-
   <div class="mobile-menu" id="mobileMenu">
     <a href="cv.html">Rakesh Ala — CV</a>
     <a href="index.html" class="active">UX/UI Works</a>
     <a href="graphic-design.html">Graphic Design Works</a>
     <a href="contact.html">Contact Me</a>
   </div>
-
   <div class="back-link">
-    <a href="index.html">← Back to UX/UI Works</a>
+    <a href="index.html">&#8592; Back to UX/UI Works</a>
   </div>
-
   <div class="case-hero">
-    <div class="hero-tag">Finance · B2B · FinTech</div>
-    <h1>Overdue Recovery Mobile & Web B2B App</h1>
-    <p>Recordent is a technology platform focused on providing credit management services, enabling businesses in their secured growth and better cash-flow management and business expansion while creating trust and transparency in seller-buyer relationships through data.</p>
+    <div class="hero-tag">Banking · Kiosk · Employee Self Service</div>
+    <h1>Burgan Bank — Kiosk Employee Self Service</h1>
+    <p>Designed the Employee Self Service kiosk screens for Burgan Bank — a touch-based in-branch interface allowing employees to access HR services, view payslips, apply for leave, update personal information, and manage routine requests independently without visiting HR. The design prioritised accessibility, large touch targets, and a clear information hierarchy suited to kiosk environments.</p>
   </div>
-
   <div class="case-body">
     <div class="case-images">
       <div class="images-grid">
-        <img src="assets/img/1/1.png" alt="" loading="lazy">
-        <img src="assets/img/1/2.png" alt="" loading="lazy">
-        <img src="assets/img/1/3.png" alt="" loading="lazy">
-        <img src="assets/img/1/4.png" alt="" loading="lazy">
-        <img src="assets/img/1/5.png" alt="" loading="lazy">
-        <img src="assets/img/1/6.png" alt="" loading="lazy">
-        <img src="assets/img/1/7.png" alt="" loading="lazy">
-        <img src="assets/img/1/8.png" alt="" loading="lazy">
-        <img src="assets/img/1/9.png" alt="" loading="lazy">
+        <img src="assets/img/9/1.png" alt="" loading="lazy">
+        <img src="assets/img/9/2.png" alt="" loading="lazy">
+        <img src="assets/img/9/3.png" alt="" loading="lazy">
+        <img src="assets/img/9/4.png" alt="" loading="lazy">
+        <img src="assets/img/9/5.png" alt="" loading="lazy">
+        <img src="assets/img/9/6.png" alt="" loading="lazy">
+        <img src="assets/img/9/7.png" alt="" loading="lazy">
+        <img src="assets/img/9/8.png" alt="" loading="lazy">
+        <img src="assets/img/9/9.png" alt="" loading="lazy">
+        <img src="assets/img/9/10.png" alt="" loading="lazy">
+        <img src="assets/img/9/11.png" alt="" loading="lazy">
+        <img src="assets/img/9/12.png" alt="" loading="lazy">
       </div>
     </div>
-
     <div class="case-sidebar">
       <div class="sidebar-block">
         <div class="sidebar-label">What I Did</div>
         <ul class="sidebar-list">
-          <li>Requirement Gathering & Analysis</li>
-          <li>Related Stakeholder Interviews & Flowcharts</li>
-          <li>Wireframing & Prototyping</li>
-          <li>Coordinating with Dev Team & Clients</li>
+          <li>Requirement Gathering & Bank Stakeholder Interviews</li>
+          <li>Kiosk UX Research & Touch Interaction Design</li>
+          <li>Information Architecture & User Flows</li>
+          <li>High-Fidelity Kiosk Screen Design</li>
+          <li>Accessibility & Large Touch Target Compliance</li>
+          <li>Prototyping & Usability Validation</li>
+          <li>Coordinating with Dev & Banking Compliance Teams</li>
         </ul>
       </div>
-      <div class="sidebar-block">
-        <div class="sidebar-label">Project Link</div>
-        <a href="https://recordent.com" target="_blank" class="visit-link">recordent.com ↗</a>
-      </div>
+
       <div class="sidebar-block">
         <div class="sidebar-label">More Projects</div>
         <div class="project-nav">
-          <a href="portfolio-2.html" class="proj-nav-link">
-            <span class="proj-nav-dir">Next →</span>
-            <span class="proj-nav-title">eeeeet — Food Platform</span>
+          <a href="portfolio-8.html" class="proj-nav-link">
+            <span class="proj-nav-dir">&#8592; Previous</span>
+            <span class="proj-nav-title">Employee Onboarding & Management</span>
+          </a>
+          <a href="portfolio-10.html" class="proj-nav-link">
+            <span class="proj-nav-dir">Next &#8594;</span>
+            <span class="proj-nav-title">Bills Management SaaS Landing Page</span>
           </a>
         </div>
       </div>
     </div>
   </div>
-
-  <!-- Lightbox -->
   <div class="lightbox" id="lightbox">
-    <button class="lb-close" id="lbClose">✕</button>
+    <button class="lb-close" id="lbClose">&#x2715;</button>
     <button class="lb-nav lb-prev" id="lbPrev">&#8249;</button>
     <img id="lbImg" src="" alt="">
     <button class="lb-nav lb-next" id="lbNext">&#8250;</button>
   </div>
-
   <footer>
     <div>
       <div class="fname">Rakesh Ala</div>
-      <div class="fcopy">© Rakesh Ala. All Rights Reserved.</div>
+      <div class="fcopy">&#169; Rakesh Ala. All Rights Reserved.</div>
     </div>
     <div class="flinks">
       <a href="mailto:rakesh.leadux@gmail.com">rakesh.leadux@gmail.com</a>
       <a href="tel:+919441230700">+91 944 1230 700</a>
     </div>
   </footer>
-
   <script>
-    // Hamburger
     const hamburger = document.getElementById('hamburger');
     const mobileMenu = document.getElementById('mobileMenu');
     hamburger.addEventListener('click', () => {
@@ -235,13 +193,10 @@
         mobileMenu.classList.remove('open');
       });
     });
-
-    // Lightbox with prev/next
     const lightbox = document.getElementById('lightbox');
     const lbImg = document.getElementById('lbImg');
     const imgs = Array.from(document.querySelectorAll('.images-grid img'));
     let current = 0;
-
     function openLb(index) {
       current = index;
       lbImg.src = imgs[current].src;
@@ -256,7 +211,6 @@
       current = (current + dir + imgs.length) % imgs.length;
       lbImg.src = imgs[current].src;
     }
-
     imgs.forEach((img, i) => img.addEventListener('click', () => openLb(i)));
     document.getElementById('lbClose').addEventListener('click', closeLb);
     document.getElementById('lbPrev').addEventListener('click', () => navigate(-1));
@@ -268,12 +222,10 @@
       if (e.key === 'ArrowLeft') navigate(-1);
       if (e.key === 'ArrowRight') navigate(1);
     });
-    // Touch swipe
     let tx = 0;
     lightbox.addEventListener('touchstart', e => tx = e.touches[0].clientX);
     lightbox.addEventListener('touchend', e => {
-      const diff = tx - e.changedTouches[0].clientX;
-      if (Math.abs(diff) > 50) navigate(diff > 0 ? 1 : -1);
+      if (Math.abs(tx - e.changedTouches[0].clientX) > 50) navigate(tx > e.changedTouches[0].clientX ? 1 : -1);
     });
   </script>
 </body>

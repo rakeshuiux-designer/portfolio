@@ -1,130 +1,269 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="utf-8">
-  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RAKESH — eeeeet — Complete Food Platform</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #0e0e0e; --surface: #161616; --surface2: #1c1c1c;
+      --border: #2a2a2a; --accent: #e8ff4a; --text: #f0f0f0;
+      --muted: #888; --nav-height: 60px;
+    }
+    html { scroll-behavior: smooth; }
+    body { background: var(--bg); color: var(--text); font-family: 'DM Sans', sans-serif; font-weight: 300; min-height: 100vh; overflow-x: hidden; }
 
-  <title>Portfolio 2</title>
-  <meta content="" name="description">
-  <meta content="" name="keywords">
+    .topbar { background: var(--accent); color: #000; font-size: 11px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; text-align: center; padding: 8px 16px; line-height: 1.4; }
 
-  <!-- Favicons -->
-  <link href="assets/img/favicon.png" rel="icon">
-  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+    nav { position: sticky; top: 0; z-index: 100; background: var(--bg); border-bottom: 1px solid var(--border); height: var(--nav-height); display: flex; align-items: center; justify-content: space-between; padding: 0 24px; gap: 16px; }
+    .nav-logo { font-family: 'Bebas Neue', sans-serif; font-size: 22px; letter-spacing: 0.05em; color: var(--text); text-decoration: none; flex-shrink: 0; }
+    .nav-links { display: flex; gap: 4px; list-style: none; align-items: center; }
+    .nav-links a { color: var(--muted); text-decoration: none; font-size: 13px; font-weight: 400; padding: 6px 12px; border-radius: 4px; transition: color 0.2s, background 0.2s; white-space: nowrap; }
+    .nav-links a:hover { color: var(--text); background: var(--surface); }
+    .nav-links li.active a { color: var(--accent); }
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 6px; background: none; border: none; }
+    .hamburger span { display: block; width: 22px; height: 2px; background: var(--text); border-radius: 2px; transition: transform 0.3s, opacity 0.3s; }
+    .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+    .mobile-menu { display: none; position: fixed; top: var(--nav-height); left: 0; right: 0; background: var(--bg); border-bottom: 1px solid var(--border); padding: 20px 24px; z-index: 99; flex-direction: column; gap: 4px; }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a { color: var(--muted); text-decoration: none; font-size: 15px; padding: 10px 0; border-bottom: 1px solid var(--border); transition: color 0.2s; }
+    .mobile-menu a:last-child { border-bottom: none; }
+    .mobile-menu a:hover, .mobile-menu a.active { color: var(--accent); }
 
-  <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css?family=https://fonts.googleapis.com/css?family=Inconsolata:400,500,600,700|Raleway:400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+    .back-link { padding: 20px 24px 0; }
+    .back-link a { display: inline-flex; align-items: center; gap: 8px; color: var(--muted); text-decoration: none; font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; font-weight: 500; transition: color 0.2s; }
+    .back-link a:hover { color: var(--accent); }
 
-  <!-- Vendor CSS Files -->
-  <link href="assets/vendor/aos/aos.css" rel="stylesheet">
-  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
-  <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+    .case-hero { padding: 32px 24px 40px; border-bottom: 1px solid var(--border); }
+    .hero-tag { display: inline-flex; align-items: center; gap: 8px; font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); margin-bottom: 16px; }
+    .hero-tag::before { content: ''; display: block; width: 24px; height: 1px; background: var(--accent); }
+    .case-hero h1 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(36px, 7vw, 80px); line-height: 0.92; letter-spacing: 0.02em; color: var(--text); margin-bottom: 20px; max-width: 800px; }
+    .case-hero p { font-size: 15px; color: #aaa; line-height: 1.8; max-width: 640px; }
 
-  <!-- Template Main CSS File -->
-  <link href="assets/css/style.css" rel="stylesheet">
+    .case-body { display: grid; grid-template-columns: 1fr 280px; gap: 0; }
 
+    /* 2-column image grid */
+    .case-images { padding: 40px 40px 64px 24px; border-right: 1px solid var(--border); }
+    .images-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+    .images-grid img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      transition: transform 0.3s, border-color 0.3s;
+      cursor: zoom-in;
+    }
+    .images-grid img:hover { transform: scale(1.02); border-color: #444; }
 
+    .case-sidebar { padding: 40px 24px 64px; position: sticky; top: var(--nav-height); height: fit-content; }
+    .sidebar-block { margin-bottom: 36px; }
+    .sidebar-label { font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent); font-weight: 500; margin-bottom: 14px; padding-bottom: 10px; border-bottom: 1px solid var(--border); }
+    .sidebar-list { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .sidebar-list li { font-size: 13px; color: #bbb; line-height: 1.5; padding-left: 14px; position: relative; }
+    .sidebar-list li::before { content: '—'; position: absolute; left: 0; color: var(--border); font-size: 11px; top: 1px; }
+    .visit-link { display: inline-flex; align-items: center; gap: 8px; color: #000; background: var(--accent); text-decoration: none; font-size: 12px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; padding: 10px 18px; border-radius: 6px; transition: opacity 0.2s; margin-top: 4px; }
+    .visit-link:hover { opacity: 0.85; }
+    .project-nav { display: flex; flex-direction: column; gap: 10px; }
+    .proj-nav-link { display: flex; flex-direction: column; gap: 3px; padding: 12px; border: 1px solid var(--border); border-radius: 6px; text-decoration: none; transition: border-color 0.2s, background 0.2s; }
+    .proj-nav-link:hover { border-color: #444; background: var(--surface); }
+    .proj-nav-dir { font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
+    .proj-nav-title { font-size: 13px; color: var(--text); font-weight: 400; }
+
+    .lightbox { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.96); z-index: 1000; align-items: center; justify-content: center; padding: 20px; }
+    .lightbox.open { display: flex; }
+    .lightbox img { max-width: 90vw; max-height: 90vh; object-fit: contain; border-radius: 6px; box-shadow: 0 32px 80px rgba(0,0,0,0.6); }
+    .lb-close { position: fixed; top: 20px; right: 20px; background: var(--surface); border: 1px solid var(--border); color: var(--text); width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 18px; transition: background 0.2s; }
+    .lb-close:hover { background: #333; }
+    .lb-nav { position: fixed; top: 50%; transform: translateY(-50%); background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15); color: var(--text); width: 44px; height: 44px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 22px; transition: background 0.2s; z-index: 1001; }
+    .lb-nav:hover { background: rgba(255,255,255,0.18); }
+    .lb-prev { left: 16px; }
+    .lb-next { right: 16px; }
+
+    footer { border-top: 1px solid var(--border); padding: 32px 24px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px; }
+    footer .fname { font-family: 'Bebas Neue', sans-serif; font-size: 20px; letter-spacing: 0.05em; }
+    footer .fcopy { font-size: 12px; color: var(--muted); margin-top: 4px; }
+    footer .flinks a { color: var(--muted); text-decoration: none; font-size: 13px; margin-left: 20px; transition: color 0.2s; }
+    footer .flinks a:hover { color: var(--accent); }
+
+    @media (max-width: 1100px) {
+      .case-body { grid-template-columns: 1fr 260px; }
+    }
+    @media (max-width: 900px) {
+      .case-body { grid-template-columns: 1fr; }
+      .case-images { padding: 32px 20px 40px; border-right: none; border-bottom: 1px solid var(--border); }
+      .case-sidebar { position: static; padding: 32px 20px 48px; }
+    }
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+      .case-hero { padding: 24px 20px 32px; }
+      .back-link { padding: 16px 20px 0; }
+      .images-grid { gap: 8px; }
+      footer { flex-direction: column; align-items: flex-start; }
+      footer .flinks a { margin-left: 0; margin-right: 16px; }
+      .lb-nav { display: none; }
+    }
+    @media (max-width: 480px) {
+      .images-grid { grid-template-columns: 1fr; }
+    }
+  </style>
 </head>
-
 <body>
 
-  <!-- ======= Navbar ======= -->
-  <div class="collapse navbar-collapse custom-navmenu" id="main-navbar">
-    <div class="container py-2 py-md-5">
-      <div class="row align-items-start">
-        <div class="col-md-2">
-          <ul class="custom-menu">
-            <li><a href="index.html">Home</a></li>
-            <li><a href="about.html">About Me</a></li>
-            <li><a href="services.html">Services</a></li>
-            <li class="active"><a href="works.html">Works</a></li>
-            <li><a href="contact.html">Contact</a></li>
-          </ul>
-        </div>   <div class="col-md-9 d-none d-md-block">
-          <h3>Working as Senior Freelance UX UI Designer for the past 8+ years. </h3>
-          <p>During my experience, I have worked for various service and product based mobile 
-and web applications related to health care, finance, gaming, LMS, ERP, CRM, SaaS, 
-eCommerce and a few more other domains.  <br> <a href="#">guru.uxdesigner@gmail.com</a></p>
+  <div class="topbar">Available for Full-time / Part-time Remote Contractual Engagement</div>
+
+  <nav>
+    <a class="nav-logo" href="index.html">Rakesh</a>
+    <ul class="nav-links">
+      <li><a href="cv.html">CV</a></li>
+      <li class="active"><a href="index.html">UX/UI Works</a></li>
+      <li><a href="graphic-design.html">Graphic Design</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="cv.html">Rakesh Ala — CV</a>
+    <a href="index.html" class="active">UX/UI Works</a>
+    <a href="graphic-design.html">Graphic Design Works</a>
+    <a href="contact.html">Contact Me</a>
+  </div>
+
+  <div class="back-link">
+    <a href="index.html">← Back to UX/UI Works</a>
+  </div>
+
+  <div class="case-hero">
+    <div class="hero-tag">Food & Lifestyle · Social Media · AI</div>
+    <h1>eeeeet — Complete Food Platform</h1>
+    <p>Brand re-named from 'FoodiBase' to 'eeeeet'. A complete food-related social media platform where people can learn cooking, teach, create groups, discuss foods, and post new events related to hospitality. This entire data ecosystem is managed by AI.</p>
+  </div>
+
+  <div class="case-body">
+    <div class="case-images">
+      <div class="images-grid">
+        <img src="assets/img/2/1.png" alt="" loading="lazy">
+        <img src="assets/img/2/2.png" alt="" loading="lazy">
+        <img src="assets/img/2/3.png" alt="" loading="lazy">
+        <img src="assets/img/2/4.png" alt="" loading="lazy">
+        <img src="assets/img/2/5.png" alt="" loading="lazy">
+        <img src="assets/img/2/6.png" alt="" loading="lazy">
+        <img src="assets/img/2/7.png" alt="" loading="lazy">
+        <img src="assets/img/2/8.png" alt="" loading="lazy">
+        <img src="assets/img/2/9.png" alt="" loading="lazy">
+      </div>
+    </div>
+
+    <div class="case-sidebar">
+      <div class="sidebar-block">
+        <div class="sidebar-label">What I Did</div>
+        <ul class="sidebar-list">
+          <li>Requirement Gathering & Analysis</li>
+          <li>Related Stakeholder Interviews & Flowcharts</li>
+          <li>Wireframing & Prototyping</li>
+          <li>Coordinating with Dev Team & Clients</li>
+        </ul>
+      </div>
+      <div class="sidebar-block">
+        <div class="sidebar-label">Project Link</div>
+        <a href="https://www.linkedin.com/company/foodibase/?originalSubdomain=in" target="_blank" class="visit-link">FoodiBase on LinkedIn ↗</a>
+      </div>
+      <div class="sidebar-block">
+        <div class="sidebar-label">More Projects</div>
+        <div class="project-nav">
+          <a href="portfolio-1.html" class="proj-nav-link">
+            <span class="proj-nav-dir">&#8592; Previous</span>
+            <span class="proj-nav-title">Overdue Recovery App</span>
+          </a>
+          <a href="portfolio-3.html" class="proj-nav-link">
+            <span class="proj-nav-dir">Next &#8594;</span>
+            <span class="proj-nav-title">Digital Healthcare Services</span>
+          </a>
         </div>
       </div>
-
     </div>
   </div>
 
-  <nav class="navbar navbar-light custom-navbar">
-    <div class="container">
-      <a class="navbar-brand" href="index.html">MyPortfolio - Rakesh Ala</a>
-      <a href="index.html">
-        <span><Img src="assets/img/close.png" width="70%"></span>
-      </a>
+  <div class="lightbox" id="lightbox">
+    <button class="lb-close" id="lbClose">&#x2715;</button>
+    <button class="lb-nav lb-prev" id="lbPrev">&#8249;</button>
+    <img id="lbImg" src="" alt="">
+    <button class="lb-nav lb-next" id="lbNext">&#8250;</button>
+  </div>
+
+  <footer>
+    <div>
+      <div class="fname">Rakesh Ala</div>
+      <div class="fcopy">&#169; Rakesh Ala. All Rights Reserved.</div>
     </div>
-  </nav>
+    <div class="flinks">
+      <a href="mailto:rakesh.leadux@gmail.com">rakesh.leadux@gmail.com</a>
+      <a href="tel:+919441230700">+91 944 1230 700</a>
+    </div>
+  </footer>
 
-  <main id="main">
+  <script>
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    hamburger.addEventListener('click', () => {
+      hamburger.classList.toggle('open');
+      mobileMenu.classList.toggle('open');
+    });
+    mobileMenu.querySelectorAll('a').forEach(a => {
+      a.addEventListener('click', () => {
+        hamburger.classList.remove('open');
+        mobileMenu.classList.remove('open');
+      });
+    });
 
-    <section class="section">
-      <div class="container">
-        <div class="row mb-4 align-items-center">
-          <div class="col-md-6" data-aos="fade-up">
-            <h2>‘eeeeet’ is a complete food platform</h2>
-            <p>Brand re-named from ‘FoodiBase’ to ‘eeeeet’ (Website under construction)</p><p>‘eeeeet’ is a complete food related social media platform, where people can learn cooking, teach, can create groups and discuss about foods, they can post new events related to hospitality. This entire data will be managed by AI.</p>
-          </div>
-        </div>
-      </div>
+    const lightbox = document.getElementById('lightbox');
+    const lbImg = document.getElementById('lbImg');
+    const imgs = Array.from(document.querySelectorAll('.images-grid img'));
+    let current = 0;
 
-      <div class="site-section pb-0">
-        <div class="container">
-          <div class="row align-items-stretch">
-            <div class="col-md-8" data-aos="fade-up">
-              <p><img src="assets/img/2/1.png" alt="Image" class="img-fluid"></p>
-			 <p><img src="assets/img/2/2.png" alt="Image" class="img-fluid"></p>
-			<p><img src="assets/img/2/3.png" alt="Image" class="img-fluid"></p>
-			<p><img src="assets/img/2/4.png" alt="Image" class="img-fluid"></p>
-			 <p><img src="assets/img/2/5.png" alt="Image" class="img-fluid"></p>
-			<p><img src="assets/img/2/6.png" alt="Image" class="img-fluid"></p>
-			<p><img src="assets/img/2/7.png" alt="Image" class="img-fluid"></p>
-			 <p><img src="assets/img/2/8.png" alt="Image" class="img-fluid"></p>
-			<p><img src="assets/img/2/9.png" alt="Image" class="img-fluid"></p>
-            </div>
-			
-            <div class="col-md-3 ml-auto" data-aos="fade-up" data-aos-delay="100">
-              <div class="sticky-content">
-               
+    function openLb(index) {
+      current = index;
+      lbImg.src = imgs[current].src;
+      lightbox.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeLb() {
+      lightbox.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+    function navigate(dir) {
+      current = (current + dir + imgs.length) % imgs.length;
+      lbImg.src = imgs[current].src;
+    }
 
-                <h4 class="h4 mb-3">What I did</h4>
-                <ul class="list-unstyled list-line mb-5">
-                  <li>Requirement Gathering & Analysis</li>
-                  <li>Related Stakeholder Interviews & Flowcharts</li>
-                  <li>Wireframing & Prototyping</li>
-                  <li>Coordinating with Dev Team & Clients</li>
-                </ul>
-
-                <p><a href="https://www.linkedin.com/company/foodibase/?originalSubdomain=in" target="_blank" class="readmore">'FoodiBase</a></p>
-              </div>
-            </div>
-          </div>
-        </div>
-    </section>
-
-
-  </main><!-- End #main -->
-
-  
-
-  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
-
-  <!-- Vendor JS Files -->
-  <script src="assets/vendor/aos/aos.js"></script>
-  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <script src="assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
-  <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
-  <script src="assets/vendor/php-email-form/validate.js"></script>
-
-  <!-- Template Main JS File -->
-  <script src="assets/js/main.js"></script>
-
+    imgs.forEach((img, i) => img.addEventListener('click', () => openLb(i)));
+    document.getElementById('lbClose').addEventListener('click', closeLb);
+    document.getElementById('lbPrev').addEventListener('click', () => navigate(-1));
+    document.getElementById('lbNext').addEventListener('click', () => navigate(1));
+    lightbox.addEventListener('click', e => { if (e.target === lightbox) closeLb(); });
+    document.addEventListener('keydown', e => {
+      if (!lightbox.classList.contains('open')) return;
+      if (e.key === 'Escape') closeLb();
+      if (e.key === 'ArrowLeft') navigate(-1);
+      if (e.key === 'ArrowRight') navigate(1);
+    });
+    let tx = 0;
+    lightbox.addEventListener('touchstart', e => tx = e.touches[0].clientX);
+    lightbox.addEventListener('touchend', e => {
+      if (Math.abs(tx - e.changedTouches[0].clientX) > 50) navigate(tx > e.changedTouches[0].clientX ? 1 : -1);
+    });
+  </script>
 </body>
-
 </html>
