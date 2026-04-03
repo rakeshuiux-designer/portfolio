@@ -1,0 +1,887 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RAKESH — CV / Resume</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0e0e0e;
+      --surface: #161616;
+      --surface2: #1c1c1c;
+      --border: #2a2a2a;
+      --accent: #e8ff4a;
+      --text: #f0f0f0;
+      --muted: #888;
+      --nav-height: 60px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 300;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* ── Top bar ── */
+    .topbar {
+      background: var(--accent);
+      color: #000;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      text-align: center;
+      padding: 8px 16px;
+      line-height: 1.4;
+    }
+
+    /* ── Nav ── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--bg);
+      border-bottom: 1px solid var(--border);
+      height: var(--nav-height);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 24px;
+      gap: 16px;
+    }
+
+    .nav-logo {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 22px;
+      letter-spacing: 0.05em;
+      color: var(--text);
+      text-decoration: none;
+      flex-shrink: 0;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 4px;
+      list-style: none;
+      align-items: center;
+    }
+
+    .nav-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 400;
+      padding: 6px 12px;
+      border-radius: 4px;
+      transition: color 0.2s, background 0.2s;
+      white-space: nowrap;
+    }
+
+    .nav-links a:hover { color: var(--text); background: var(--surface); }
+    .nav-links li.active a { color: var(--accent); }
+
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      padding: 6px;
+      background: none;
+      border: none;
+    }
+    .hamburger span {
+      display: block;
+      width: 22px;
+      height: 2px;
+      background: var(--text);
+      border-radius: 2px;
+      transition: transform 0.3s, opacity 0.3s;
+    }
+    .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    .mobile-menu {
+      display: none;
+      position: fixed;
+      top: var(--nav-height);
+      left: 0; right: 0;
+      background: var(--bg);
+      border-bottom: 1px solid var(--border);
+      padding: 20px 24px;
+      z-index: 99;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 15px;
+      padding: 10px 0;
+      border-bottom: 1px solid var(--border);
+      transition: color 0.2s;
+    }
+    .mobile-menu a:last-child { border-bottom: none; }
+    .mobile-menu a:hover, .mobile-menu a.active { color: var(--accent); }
+
+    /* ── Hero / Header ── */
+    .cv-header {
+      padding: 48px 24px 40px;
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 32px;
+      flex-wrap: wrap;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .cv-header-left {}
+
+    .hero-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 11px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 16px;
+    }
+    .hero-tag::before {
+      content: '';
+      display: block;
+      width: 24px;
+      height: 1px;
+      background: var(--accent);
+    }
+
+    .cv-header h1 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(52px, 10vw, 110px);
+      line-height: 0.88;
+      letter-spacing: 0.02em;
+      color: var(--text);
+      margin-bottom: 16px;
+    }
+
+    .cv-header h1 em {
+      color: var(--accent);
+      font-style: normal;
+    }
+
+    .cv-title {
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.7;
+      max-width: 480px;
+    }
+
+    .cv-title strong { color: var(--text); font-weight: 500; }
+
+    .cv-header-right {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      align-items: flex-end;
+      flex-shrink: 0;
+    }
+
+    .availability-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: rgba(232,255,74,0.08);
+      border: 1px solid rgba(232,255,74,0.2);
+      border-radius: 100px;
+      padding: 10px 18px;
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--accent);
+    }
+
+    .availability-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--accent);
+      animation: pulse 2s ease infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(0.85); }
+    }
+
+    .contact-pills {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      align-items: flex-end;
+    }
+
+    .contact-pills a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 13px;
+      transition: color 0.2s;
+    }
+    .contact-pills a:hover { color: var(--accent); }
+
+    .print-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 9px 18px;
+      border-radius: 6px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: border-color 0.2s, background 0.2s;
+      text-decoration: none;
+    }
+    .print-btn:hover { border-color: #555; background: var(--surface2); }
+
+    /* ── Main layout ── */
+    .cv-body {
+      display: grid;
+      grid-template-columns: 1fr 300px;
+      gap: 0;
+      max-width: 1200px;
+    }
+
+    .cv-main {
+      padding: 48px 48px 64px 24px;
+      border-right: 1px solid var(--border);
+    }
+
+    .cv-sidebar {
+      padding: 48px 24px 64px;
+    }
+
+    /* ── Section ── */
+    .cv-section {
+      margin-bottom: 52px;
+    }
+
+    .section-label {
+      font-size: 10px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent);
+      font-weight: 500;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .section-label::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+
+    /* ── Summary ── */
+    .summary-text {
+      font-size: 15px;
+      line-height: 1.8;
+      color: #c8c8c8;
+      max-width: 640px;
+    }
+
+    /* ── Experience ── */
+    .exp-item {
+      padding-bottom: 36px;
+      margin-bottom: 36px;
+      border-bottom: 1px solid var(--border);
+      position: relative;
+      padding-left: 20px;
+    }
+
+    .exp-item::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 8px;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--accent);
+    }
+
+    .exp-item:last-child {
+      border-bottom: none;
+      margin-bottom: 0;
+      padding-bottom: 0;
+    }
+
+    .exp-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 16px;
+      margin-bottom: 4px;
+      flex-wrap: wrap;
+    }
+
+    .exp-role {
+      font-size: 15px;
+      font-weight: 500;
+      color: var(--text);
+      line-height: 1.4;
+    }
+
+    .exp-period {
+      font-size: 11px;
+      color: var(--muted);
+      letter-spacing: 0.06em;
+      white-space: nowrap;
+      padding-top: 2px;
+      flex-shrink: 0;
+    }
+
+    .exp-company {
+      font-size: 13px;
+      color: var(--accent);
+      margin-bottom: 12px;
+      font-weight: 400;
+    }
+
+    .exp-bullets {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .exp-bullets li {
+      font-size: 13px;
+      color: #aaa;
+      line-height: 1.6;
+      padding-left: 16px;
+      position: relative;
+    }
+
+    .exp-bullets li::before {
+      content: '—';
+      position: absolute;
+      left: 0;
+      color: var(--border);
+      font-size: 11px;
+    }
+
+    /* ── Sidebar sections ── */
+    .sidebar-section {
+      margin-bottom: 40px;
+    }
+
+    .sidebar-label {
+      font-size: 10px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent);
+      font-weight: 500;
+      margin-bottom: 16px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    /* Skills / Competencies */
+    .skills-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .skill-tag {
+      font-size: 12px;
+      color: #bbb;
+      padding: 8px 12px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      line-height: 1.4;
+    }
+
+    /* Tools */
+    .tools-group {
+      margin-bottom: 16px;
+    }
+
+    .tools-group-label {
+      font-size: 10px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 8px;
+      font-weight: 500;
+    }
+
+    .tools-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .tool-pill {
+      font-size: 11px;
+      color: var(--text);
+      padding: 4px 10px;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 100px;
+    }
+
+    /* Education */
+    .edu-item {
+      margin-bottom: 20px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid var(--border);
+    }
+    .edu-item:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+
+    .edu-degree {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text);
+      margin-bottom: 4px;
+      line-height: 1.4;
+    }
+
+    .edu-school {
+      font-size: 12px;
+      color: var(--muted);
+      margin-bottom: 2px;
+    }
+
+    .edu-year {
+      font-size: 11px;
+      color: var(--accent);
+      letter-spacing: 0.06em;
+    }
+
+    /* Info items */
+    .info-row {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .info-item {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+
+    .info-key {
+      font-size: 10px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      font-weight: 500;
+    }
+
+    .info-val {
+      font-size: 13px;
+      color: var(--text);
+      line-height: 1.5;
+    }
+
+    /* Domains */
+    .domains-wrap {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .domain-tag {
+      font-size: 11px;
+      color: var(--muted);
+      padding: 4px 10px;
+      border: 1px solid var(--border);
+      border-radius: 100px;
+    }
+
+    /* ── Footer ── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 32px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    footer .name {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 20px;
+      letter-spacing: 0.05em;
+    }
+
+    footer .copy { font-size: 12px; color: var(--muted); margin-top: 4px; }
+
+    footer .flinks a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 13px;
+      margin-left: 20px;
+      transition: color 0.2s;
+    }
+    footer .flinks a:hover { color: var(--accent); }
+
+    /* ── Responsive ── */
+    @media (max-width: 900px) {
+      .cv-body { grid-template-columns: 1fr; }
+      .cv-main { padding: 36px 20px 40px; border-right: none; border-bottom: 1px solid var(--border); }
+      .cv-sidebar { padding: 36px 20px 48px; }
+    }
+
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+      .cv-header { padding: 32px 20px 32px; }
+      .cv-header-right { align-items: flex-start; }
+      footer { flex-direction: column; align-items: flex-start; }
+      footer .flinks a { margin-left: 0; margin-right: 16px; }
+    }
+
+    @media (max-width: 480px) {
+      .exp-header { flex-direction: column; gap: 4px; }
+      .contact-pills { align-items: flex-start; }
+    }
+
+    /* Print styles */
+    @media print {
+      .topbar, nav, .mobile-menu, .print-btn, footer { display: none !important; }
+      body { background: #fff; color: #111; }
+      :root {
+        --bg: #fff;
+        --surface: #f5f5f5;
+        --surface2: #eee;
+        --border: #ddd;
+        --accent: #1a1a1a;
+        --text: #111;
+        --muted: #555;
+      }
+      .cv-body { grid-template-columns: 1fr 260px; }
+      .cv-header { padding: 24px 0 20px; }
+      .cv-main { padding: 24px 32px 0 0; }
+      .cv-sidebar { padding: 24px 0; }
+      .skill-tag, .tool-pill, .domain-tag { border-color: #ccc; background: #f5f5f5; }
+      .availability-badge { display: none; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="topbar">
+    Available for Full-time / Part-time Remote Contractual Engagement
+  </div>
+
+  <nav>
+    <a class="nav-logo" href="index.html">Rakesh</a>
+
+    <ul class="nav-links">
+      <li class="active"><a href="cv.html">CV</a></li>
+      <li><a href="index.html">UX/UI Works</a></li>
+      <li><a href="graphic-design.html">Graphic Design</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+
+    <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="cv.html" class="active">Rakesh Ala — CV</a>
+    <a href="index.html">UX/UI Works</a>
+    <a href="graphic-design.html">Graphic Design Works</a>
+    <a href="contact.html">Contact Me</a>
+  </div>
+
+  <!-- ── CV Header ── -->
+  <div class="cv-header">
+    <div class="cv-header-left">
+      <div class="hero-tag">Curriculum Vitae · 15+ Years Experience</div>
+      <h1>Rakesh<br><em>Ala</em></h1>
+      <p class="cv-title">
+        <strong>Senior Graphic Designer · Visual Designer</strong><br>
+        Brand Identity Specialist · Creative Director<br>
+        Hyderabad, India · Available Immediately
+      </p>
+    </div>
+
+    <div class="cv-header-right">
+      <div class="availability-badge">
+        <span class="availability-dot"></span>
+        Available for new projects
+      </div>
+      <div class="contact-pills">
+        <a href="mailto:rakesh.leadux@gmail.com">rakesh.leadux@gmail.com</a>
+        <a href="tel:+917670913993">+91 7670913993</a>
+        <a href="https://rakeshuiux-designer.github.io/portfolio/graphic-design.html" target="_blank">Portfolio ↗</a>
+      </div>
+      <button class="print-btn" onclick="window.print()">⎙ Print / Save PDF</button>
+    </div>
+  </div>
+
+  <!-- ── CV Body ── -->
+  <div class="cv-body">
+
+    <!-- Main column -->
+    <div class="cv-main">
+
+      <!-- Summary -->
+      <div class="cv-section">
+        <div class="section-label">Professional Summary</div>
+        <p class="summary-text">
+          Results-driven Senior Graphic Designer with 15+ years of experience crafting compelling visual identities, marketing collaterals, digital graphics, and brand communication across Healthcare, FinTech, Insurance, Government, and e-Commerce sectors. Proven ability to lead creative projects end-to-end — from concept ideation and brand strategy to final production-ready artwork — while managing client expectations and collaborating with cross-functional teams. Adept at delivering multilingual design (Arabic/English, RTL/LTR) and meeting WCAG accessibility standards for global audiences.
+        </p>
+      </div>
+
+      <!-- Experience -->
+      <div class="cv-section">
+        <div class="section-label">Professional Experience</div>
+
+        <div class="exp-item">
+          <div class="exp-header">
+            <div class="exp-role">Senior Graphic Designer · Visual Designer</div>
+            <div class="exp-period">May 2020 — Present</div>
+          </div>
+          <div class="exp-company">Self-Employed (Freelance) · Remote / Hyderabad, India</div>
+          <ul class="exp-bullets">
+            <li>Designed brand identities, marketing collaterals, and digital graphics for 10+ enterprise clients across Healthcare, Insurance, HR, and SaaS sectors.</li>
+            <li>Produced high-fidelity UI visuals, style guides, and design systems ensuring consistent visual language across web and mobile platforms.</li>
+            <li>Created multilingual (Arabic/English) print and digital assets with full RTL/LTR layout support and WCAG 2.1 AA colour compliance.</li>
+            <li>Managed end-to-end creative delivery — from concept briefs and mood boards to final print-ready and digital production files.</li>
+            <li>Collaborated directly with product owners, developers, and C-suite stakeholders; delivered projects 20% faster through streamlined feedback loops.</li>
+          </ul>
+        </div>
+
+        <div class="exp-item">
+          <div class="exp-header">
+            <div class="exp-role">Senior Graphic & UI Designer</div>
+            <div class="exp-period">Feb 2020 — Apr 2020</div>
+          </div>
+          <div class="exp-company">Collabera Technologies (NTT Data) · Hyderabad, India</div>
+          <ul class="exp-bullets">
+            <li>Designed visual interface components, iconography, and data visualisation graphics for an Enterprise Insurance Policy Management Suite across 7+ product modules.</li>
+            <li>Built a modular design system with shared visual components (form layouts, approval panels, dashboards) reused across Vehicle, Money/Life, and Travel insurance verticals.</li>
+            <li>Produced annotated design specs and interactive prototypes used directly by development teams, reducing handoff ambiguity and rework by 30%.</li>
+          </ul>
+        </div>
+
+        <div class="exp-item">
+          <div class="exp-header">
+            <div class="exp-role">Senior Graphic & Visual Designer</div>
+            <div class="exp-period">Jun 2016 — Sep 2019</div>
+          </div>
+          <div class="exp-company">Cognate IT Services · Hyderabad, India</div>
+          <ul class="exp-bullets">
+            <li>Led visual design for FinTech (PurpleMint Instant Loan), real estate (Smart Livin), legal tech (e-Will), and eLearning (U-Sky) — reducing onboarding drop-offs by 25–40%.</li>
+            <li>Designed intuitive drag-and-drop workflow automation UI graphics for an enterprise rule engine; improved process visualisation clarity by 35%.</li>
+            <li>Delivered complete creative cycle: concept → wireframe → high-fidelity visuals → usability testing → production handoff with annotated specs.</li>
+          </ul>
+        </div>
+
+        <div class="exp-item">
+          <div class="exp-header">
+            <div class="exp-role">Graphic Designer & Visual Designer</div>
+            <div class="exp-period">Dec 2014 — Feb 2016</div>
+          </div>
+          <div class="exp-company">Call Health Services · Hyderabad, India</div>
+          <ul class="exp-bullets">
+            <li>Designed a comprehensive visual identity spanning EHR portals, Medical Tourism website, e-Consultation app, Mobile Health Officer screens, and Call Centre dashboards.</li>
+            <li>Standardised design language across 6+ healthcare sub-systems; improved data comprehension by 45% and reduced field executive task time by 25%.</li>
+            <li>Applied accessibility and clinical UX standards: high contrast, large touch targets, minimal cognitive load — validated with nurses, clinicians, and call centre agents.</li>
+          </ul>
+        </div>
+
+        <div class="exp-item">
+          <div class="exp-header">
+            <div class="exp-role">Graphic Designer · Creative Designer</div>
+            <div class="exp-period">2008 — 2014</div>
+          </div>
+          <div class="exp-company">Aakaram Advertising / Medzi Tech · Hyderabad, India</div>
+          <ul class="exp-bullets">
+            <li>Delivered end-to-end creative work: brand identities, advertising campaigns, brochures, banners, posters, and responsive HTML/CSS web layouts for diverse client verticals.</li>
+            <li>Built foundational graphic design practice; managed multiple client accounts simultaneously within deadline-driven advertising environments.</li>
+            <li>Produced print production-ready artwork — pre-press checks, colour separation, and vendor coordination — for large-format and offset print campaigns.</li>
+          </ul>
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- Sidebar -->
+    <div class="cv-sidebar">
+
+      <!-- Core Competencies -->
+      <div class="sidebar-section">
+        <div class="sidebar-label">Core Competencies</div>
+        <div class="skills-grid">
+          <div class="skill-tag">Brand Identity & Logo Design</div>
+          <div class="skill-tag">Print & Publication Design</div>
+          <div class="skill-tag">Marketing Collateral Design</div>
+          <div class="skill-tag">Digital & Social Media Graphics</div>
+          <div class="skill-tag">UI / Visual Design</div>
+          <div class="skill-tag">Typography & Layout</div>
+          <div class="skill-tag">Illustration & Iconography</div>
+          <div class="skill-tag">Motion Graphics & Animation</div>
+          <div class="skill-tag">Multilingual Design (RTL/LTR)</div>
+          <div class="skill-tag">Accessibility (WCAG 2.1 AA)</div>
+          <div class="skill-tag">Creative Direction</div>
+          <div class="skill-tag">Client & Stakeholder Management</div>
+        </div>
+      </div>
+
+      <!-- Tools -->
+      <div class="sidebar-section">
+        <div class="sidebar-label">Tools & Technologies</div>
+
+        <div class="tools-group">
+          <div class="tools-group-label">Design</div>
+          <div class="tools-list">
+            <span class="tool-pill">Adobe Photoshop</span>
+            <span class="tool-pill">Illustrator</span>
+            <span class="tool-pill">InDesign</span>
+            <span class="tool-pill">Adobe XD</span>
+            <span class="tool-pill">CorelDRAW</span>
+            <span class="tool-pill">Figma</span>
+            <span class="tool-pill">Sketch</span>
+          </div>
+        </div>
+
+        <div class="tools-group">
+          <div class="tools-group-label">Prototyping</div>
+          <div class="tools-list">
+            <span class="tool-pill">Figma</span>
+            <span class="tool-pill">Axure RP</span>
+            <span class="tool-pill">Balsamiq</span>
+            <span class="tool-pill">InVision</span>
+          </div>
+        </div>
+
+        <div class="tools-group">
+          <div class="tools-group-label">Collaboration</div>
+          <div class="tools-list">
+            <span class="tool-pill">Jira</span>
+            <span class="tool-pill">Confluence</span>
+            <span class="tool-pill">Miro</span>
+            <span class="tool-pill">Zeplin</span>
+          </div>
+        </div>
+
+        <div class="tools-group">
+          <div class="tools-group-label">Frontend</div>
+          <div class="tools-list">
+            <span class="tool-pill">HTML</span>
+            <span class="tool-pill">CSS</span>
+            <span class="tool-pill">Bootstrap</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Education -->
+      <div class="sidebar-section">
+        <div class="sidebar-label">Education</div>
+
+        <div class="edu-item">
+          <div class="edu-degree">Multimedia Certification in Graphic Designing & UX/UI</div>
+          <div class="edu-school">APTECH ARENA, Dilsukhnagar, Hyderabad</div>
+          <div class="edu-year">2010 — 2011</div>
+        </div>
+
+        <div class="edu-item">
+          <div class="edu-degree">Bachelor of Arts — History</div>
+          <div class="edu-school">Tamilnadu Open University</div>
+          <div class="edu-year">2007 — 2010</div>
+        </div>
+      </div>
+
+      <!-- Additional info -->
+      <div class="sidebar-section">
+        <div class="sidebar-label">Additional Info</div>
+        <div class="info-row">
+          <div class="info-item">
+            <span class="info-key">Languages</span>
+            <span class="info-val">English · Hindi · Telugu · Arabic (UI Reading)</span>
+          </div>
+          <div class="info-item">
+            <span class="info-key">Open To Roles</span>
+            <span class="info-val">Senior Graphic Designer · Visual Designer · Creative Director · Brand Designer · Art Director</span>
+          </div>
+          <div class="info-item">
+            <span class="info-key">Availability</span>
+            <span class="info-val">Immediate Joining · Ready to Relocate: GCC / India</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Domains -->
+      <div class="sidebar-section">
+        <div class="sidebar-label">Domains</div>
+        <div class="domains-wrap">
+          <span class="domain-tag">Healthcare</span>
+          <span class="domain-tag">FinTech</span>
+          <span class="domain-tag">Insurance</span>
+          <span class="domain-tag">Government Digital</span>
+          <span class="domain-tag">HR & Enterprise SaaS</span>
+          <span class="domain-tag">e-Learning</span>
+          <span class="domain-tag">Real Estate</span>
+          <span class="domain-tag">Advertising</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <footer>
+    <div>
+      <div class="name">Rakesh Ala</div>
+      <div class="copy">© Rakesh Ala. All Rights Reserved.</div>
+    </div>
+    <div class="flinks">
+      <a href="mailto:rakesh.leadux@gmail.com">rakesh.leadux@gmail.com</a>
+      <a href="tel:+917670913993">+91 7670913993</a>
+    </div>
+  </footer>
+
+  <script>
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    hamburger.addEventListener('click', () => {
+      hamburger.classList.toggle('open');
+      mobileMenu.classList.toggle('open');
+    });
+    mobileMenu.querySelectorAll('a').forEach(a => {
+      a.addEventListener('click', () => {
+        hamburger.classList.remove('open');
+        mobileMenu.classList.remove('open');
+      });
+    });
+  </script>
+
+</body>
+</html>
